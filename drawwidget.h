@@ -12,6 +12,8 @@
 #include <QMouseEvent>
 #include <QPaintEvent>
 
+const QColor backgroundColor = QColor(255, 239, 219);
+
 class drawWidget : public QWidget
 {
     Q_OBJECT
@@ -42,6 +44,7 @@ signals:
 
 public slots:
     void mousePressEvent(QMouseEvent *e);
+    void mouseMoveEvent(QMouseEvent *e);
     void mouseReleaseEvent(QMouseEvent *e);
 };
 

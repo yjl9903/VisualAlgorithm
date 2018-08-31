@@ -6,7 +6,7 @@ drawWidget::drawWidget(QWidget *parent) : QWidget(parent)
     setAutoFillBackground(true);
     setPalette(QPalette(Qt::white));
     pix = new QPixmap(size());
-    pix->fill(QColor(255, 239, 219));
+    pix->fill(backgroundColor);
     mode = 0;
 }
 
@@ -19,7 +19,7 @@ drawWidget::~drawWidget()
 void drawWidget::clear()
 {
     QPixmap *p = new QPixmap(size());
-    p->fill(Qt::white);
+    p->fill(backgroundColor);
     pix = p;
     update();
 }
@@ -49,6 +49,11 @@ void drawWidget::paintEvent(QPaintEvent *e){
 void drawWidget::mousePressEvent(QMouseEvent *e)
 {
     beginPos = e->pos();
+}
+
+void drawWidget::mouseMoveEvent(QMouseEvent *e)
+{
+
 }
 
 void drawWidget::mouseReleaseEvent(QMouseEvent *e)
