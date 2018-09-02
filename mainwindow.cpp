@@ -43,9 +43,11 @@ void MainWindow::setStatusBar()
 void MainWindow::on_createVertex_triggered()
 {
     mode = 0;
+    draw->setMode(0);
 }
 
 void MainWindow::on_createEdge_triggered()
 {
     mode = 1;
+    draw->setMode(1);
 }

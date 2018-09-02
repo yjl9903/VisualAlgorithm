@@ -2,7 +2,9 @@
 #define DRAWWIDGET_H
 
 #include "canvas.h"
+#include <cmath>
 #include <QWidget>
+#include <QPair>
 #include <QColor>
 #include <QPen>
 #include <QBrush>
@@ -27,18 +29,20 @@ public:
     void setMode(int);
 
     void drawCircle(QPoint, QColor color = Qt::yellow, int size = defaultSize);
+    void drawLine(int k, QPoint, QPoint, QColor = Qt::black, int width = 3);
+    void drawArrowLine(QPoint, QPoint, QPainter&, QColor color = Qt::black, double size = 10.0);
     void drawLine(QPoint);
     void paintEvent(QPaintEvent *);
 
 private:
-    QPixmap *pix;
+    QPixmap *pixTemp, *pixLine, *pixCircle;
 
     int mode = 0;
+    bool isDrawLine;
 
     QPoint beginPos, endPos;
 
     Container container;
-
 
 signals:
 

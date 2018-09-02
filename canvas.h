@@ -52,7 +52,6 @@ protected:
     QColor _color;
 
 public:
-    virtual ~Canvas(){}
     virtual int getID(){ return id; }
     virtual void setColor(QColor x){ _color = x; }
     virtual QColor color(){ return _color; }
@@ -150,13 +149,14 @@ public:
         _circle.append(t);
         return _circle.size() - 1;
     }
-    QPair<int,int> insertLine(QPoint begin, QPoint end)
+    int insertLine(QPoint begin, QPoint end)
     {
-        if (!isInCircle(begin) || !isInCircle(end))
-            return QPair<int,int>(-1, -1);
-        Line t(begin, end, _line.size());
+        int x = getCircleIndex(begin), y = getCircleIndex(end);
+        if (x == -1 || y == -1)
+            return -1;
+        Line t(_circle[x].pos(), _circle[y].pos(), _line.size());
         _line.append(t);
-        return QPair<int,int>(getCircleIndex(begin), getCircleIndex(end));
+        return t.getID();
     }
 };
 
