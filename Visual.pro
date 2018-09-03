@@ -25,7 +25,8 @@ CONFIG += c++11
 SOURCES += \
         main.cpp \
         mainwindow.cpp \
-    drawwidget.cpp
+    drawwidget.cpp \
+    canvas.cpp
 
 HEADERS += \
         mainwindow.h \
