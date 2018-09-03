@@ -50,7 +50,7 @@ int Container::getCircleIndex(QPoint x)
 {
     for (auto& t : _circle){
         if (t.distance(x) <= t.size())
-            return t.getID();
+            return t.id();
     }
     return -1;
 }
@@ -65,12 +65,12 @@ int Container::insertCircle(QPoint pos, int size)
     return _circle.size() - 1;
 }
 
-int Container::insertLine(QPoint begin, QPoint end)
+QPair<int,int> Container::insertLine(QPoint begin, QPoint end)
 {
     int x = getCircleIndex(begin), y = getCircleIndex(end);
     if (x == -1 || y == -1)
-        return -1;
+        return QPair<int,int>(-1, -1);
     Line t(_circle[x].pos(), _circle[y].pos(), _line.size());
     _line.append(t);
-    return t.getID();
+    return QPair<int,int>(x,y);
 }

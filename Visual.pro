@@ -26,12 +26,14 @@ SOURCES += \
         main.cpp \
         mainwindow.cpp \
     drawwidget.cpp \
-    canvas.cpp
+    canvas.cpp \
+    animation.cpp
 
 HEADERS += \
         mainwindow.h \
     drawwidget.h \
-    canvas.h
+    canvas.h \
+    graph.h
 
 FORMS += \
         mainwindow.ui

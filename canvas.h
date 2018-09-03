@@ -1,8 +1,6 @@
 #ifndef CANVAS_H
 #define CANVAS_H
 
-#endif // CANVAS_H
-
 #include <QColor>
 #include <QPoint>
 #include <QVector>
@@ -28,11 +26,11 @@ public:
 class Canvas
 {
 protected:
-    int id;
+    int _id;
     QColor _color;
 
 public:
-    virtual int getID(){ return id; }
+    virtual int id(){ return _id; }
     virtual void setColor(QColor x){ _color = x; }
     virtual QColor color(){ return _color; }
 };
@@ -53,7 +51,7 @@ public:
     {
         _pos = x;
         _size = sz;
-        id = i;
+        _id = i;
     }
 
     QPoint pos(){ return _pos; }
@@ -76,7 +74,7 @@ public:
     {
         _begin = bg;
         _end = ed;
-        id = i;
+        _id = i;
     }
 
     QPoint begin(){return _begin;}
@@ -85,23 +83,24 @@ public:
 
 class Container
 {
-private:
+protected:
     QVector<Circle> _circle;
     QVector<Line> _line;
     ColorList mld;
+
+    int insertCircle(QPoint pos, int size = defaultSize);
+    QPair<int,int> insertLine(QPoint begin, QPoint end);
+
 public:
-    Container()
-    {
-        mld.init();
-        _circle.clear();
-        _line.clear();
-    }
     Circle circle(int i){return _circle[i];}
     Line line(int i){return _line[i];}
     bool isInCircle(QPoint x, int range = 0);
     int getCircleIndex(QPoint x);
-    int insertCircle(QPoint pos, int size = defaultSize);
-    int insertLine(QPoint begin, QPoint end);
+
+    virtual int insert(QPoint) = 0;
+    virtual int link(QPoint, QPoint) = 0;
 };
+
+#endif // CANVAS_H
 
 

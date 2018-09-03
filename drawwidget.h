@@ -2,6 +2,7 @@
 #define DRAWWIDGET_H
 
 #include "canvas.h"
+#include "graph.h"
 #include <cmath>
 #include <QWidget>
 #include <QFont>
@@ -32,7 +33,7 @@ public:
 
     void drawText(QPoint, QString, QPainter&);
     void drawLineText(QPoint, QPoint, QString, QPainter&);
-    void drawCircle(QPoint, int, QColor color = Qt::yellow, int size = defaultSize);
+    void drawCircle(Circle, QColor color = Qt::yellow, int size = defaultSize);
     void drawLine(int k, QPoint, QPoint, QColor = Qt::black, int width = 3);
     void drawArrowLine(QPoint, QPoint, QPainter&, QColor color = Qt::black, double size = 10.0);
     void drawLine(QPoint);
@@ -46,7 +47,8 @@ private:
 
     QPoint beginPos, endPos;
 
-    Container container;
+    // Container container;
+    Graph graph;
 
 signals:
 
