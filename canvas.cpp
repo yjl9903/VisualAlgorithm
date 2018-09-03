@@ -71,6 +71,7 @@ QPair<int,int> Container::insertLine(QPoint begin, QPoint end)
     if (x == -1 || y == -1 || x == y)
         return QPair<int,int>(-1, -1);
     Line t(_circle[x].pos(), _circle[y].pos(), _line.size());
+    t.setColor(Qt::black);
     _line.append(t);
     return QPair<int,int>(x,y);
 }

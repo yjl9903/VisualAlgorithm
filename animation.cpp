@@ -14,11 +14,11 @@ void drawWidget::drawText(QPoint pos, QString str, QPainter& painter)
     painter.setPen(QPen(Qt::black));
     if (str.size() == 1){
         pos.setX(pos.x() - 8);
-        pos.setY(pos.y() + 8);
+        pos.setY(pos.y() + 10);
     }
     else {
         pos.setX(pos.x() - 16);
-        pos.setY(pos.y() + 8);
+        pos.setY(pos.y() + 10);
     }
     painter.drawText(pos, str);
 }
@@ -27,42 +27,80 @@ void drawWidget::drawLineText(QPoint beg, QPoint end, QString str, QPainter& pai
 {
     painter.setFont(getFont());
     painter.setPen(QPen(Qt::black));
-    QPoint pos, half = (beg + end) / 2;
+    QPoint pos, half = (beg + end) / 2, tPos = end - beg;
 
-    if (beg.x() <= end.x()){
-        pos.setY(half.y() - 15);
-        if (beg.y() <= end.y()){
-            qDebug() << 1;
-            pos.setX(half.x() + 3);
-        }
-        else {
-            qDebug() << 2;
-            pos.setX(half.x() - 15);
-        }
-    }
-    else {
-        pos.setY(half.y() + 20);
-        if (beg.y() <= end.y()){
-            qDebug() << 3;
-            pos.setX(half.x() + 15);
-        }
-        else {
-            qDebug() << 4;
-            pos.setX(half.x() - 30);
-        }
-    }
+    if(beg.x()<=end.x()&&beg.y()>=end.y())
+     {
+         if(abs(tPos.y())>=abs(tPos.x()))
+         {
+             pos.setX(half.x()-20);
+             pos.setY(half.y());
+//             qDebug()<<1;
+         }
+         else if(abs(tPos.y())<abs(tPos.x()))
+         {
+             pos.setY(half.y()-10);
+             pos.setX(half.x());
+//             qDebug()<<2;
+         }
+     }
+     else if(beg.x()<end.x()&&beg.y()<end.y())
+     {
+         if(abs(tPos.y())<=abs(tPos.x()))
+         {
+             pos.setY(half.y()-10);
+             pos.setX(half.x());
+//             qDebug()<<3;
+         }
+         else if(abs(tPos.y())>abs(tPos.x()))
+         {
+             pos.setX(half.x()+10);
+             pos.setY(half.y());
+//             qDebug()<<4;
+         }
+     }
+     else if(beg.x()>=end.x()&&beg.y()<=end.y())
+     {
+         if(abs(tPos.y())>=abs(tPos.x()))
+         {
+             pos.setX(half.x()+10);
+             pos.setY(half.y());
+//             qDebug()<<5;
+         }
+         else if(abs(tPos.y())<abs(tPos.x()))
+         {
+             pos.setY(half.y()+20);
+             pos.setX(half.x());
+//             qDebug()<<6;
+         }
+     }
+     else if(beg.x()>end.x()&&beg.y()>end.y())
+     {
+         if(abs(tPos.y())<=abs(tPos.x()))
+         {
+             pos.setY(half.y()+20);
+             pos.setX(half.x());
+//             qDebug()<<7;
+         }
+         else if(abs(tPos.y())>abs(tPos.x()))
+         {
+             pos.setX(half.x()-20);
+             pos.setY(half.y());
+//             qDebug()<<8;
+         }
+     }
 
     painter.drawText(pos, str);
 }
 
-void drawWidget::drawCircle(Circle x, QColor color, int size)
+void drawWidget::drawCircle(Circle x, QColor color)
 {
     QPainter *painter = new QPainter(this);
     painter->begin(pixCircle);
     painter->setPen(QPen(color));
     painter->setBrush(QBrush(color));
     painter->setRenderHint(QPainter::Antialiasing, true);
-    painter->drawEllipse(x.pos(), size, size);
+    painter->drawEllipse(x.pos(), x.size(), x.size());
 
     drawText(x.pos(), QString::number(x.id()), *painter);
 

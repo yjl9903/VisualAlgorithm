@@ -50,6 +50,10 @@ void drawWidget::mousePressEvent(QMouseEvent *e)
         int id = graph.getCircleIndex(beginPos);
         if (id == -1) return;
         beginPos = graph.circle(id).pos();
+
+        beginCircle = graph.circle(id);
+        drawCircle(beginCircle, QColor(255, 99, 71));
+
         isDrawLine = 1;
     }
 }
@@ -72,6 +76,9 @@ void drawWidget::mouseReleaseEvent(QMouseEvent *e)
         drawCircle(x, x.color());
     }
     if (mode == 1){
+        if (isDrawLine){
+            drawCircle(beginCircle, beginCircle.color());
+        }
         int id = graph.link(beginPos, endPos);
         if (id == -1){
             pixTemp->fill(QColor(0, 0, 0, 0));

@@ -33,10 +33,11 @@ public:
 
     void drawText(QPoint, QString, QPainter&);
     void drawLineText(QPoint, QPoint, QString, QPainter&);
-    void drawCircle(Circle, QColor color = Qt::yellow, int size = defaultSize);
+    void drawCircle(Circle, QColor color = Qt::yellow);
     void drawLine(int k, QPoint, QPoint, QColor = Qt::black, int width = 3);
     void drawArrowLine(QPoint, QPoint, QPainter&, QColor color = Qt::black, double size = 10.0);
     void drawLine(QPoint);
+
     void paintEvent(QPaintEvent *);
 
 private:
@@ -46,8 +47,8 @@ private:
     bool isDrawLine;
 
     QPoint beginPos, endPos;
+    Circle beginCircle;
 
-    // Container container;
     Graph graph;
 
 signals:
