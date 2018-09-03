@@ -36,7 +36,10 @@ void MainWindow::setStatusBar()
     statusBar()->addWidget(statusLabel[0]);
 
     statusLabel[1] = new QLabel(this);
-    statusLabel[1]->setText("顶点");
+    if (mode == 0)
+        statusLabel[1]->setText("顶点");
+    else if (mode == 1)
+        statusLabel[1]->setText("边");
     statusBar()->addWidget(statusLabel[1]);
 }
 
@@ -44,10 +47,12 @@ void MainWindow::on_createVertex_triggered()
 {
     mode = 0;
     draw->setMode(0);
+    setStatusBar();
 }
 
 void MainWindow::on_createEdge_triggered()
 {
     mode = 1;
     draw->setMode(1);
+    setStatusBar();
 }

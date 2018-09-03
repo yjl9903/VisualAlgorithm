@@ -12,7 +12,7 @@
 #include <cstdio>
 #include <QDebug>
 
-const int defaultSize = 30;
+const int defaultSize = 35;
 
 class ColorList{
 private:

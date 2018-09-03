@@ -9,11 +9,11 @@
   + virtual void setColor();
   + virtual QColor color();
 
-## Circle
+### Circle
 
 
 
-## Line
+### Line
 
 
 

@@ -4,6 +4,7 @@
 #include "canvas.h"
 #include <cmath>
 #include <QWidget>
+#include <QFont>
 #include <QPair>
 #include <QColor>
 #include <QPen>
@@ -15,6 +16,7 @@
 #include <QPaintEvent>
 
 const QColor backgroundColor = QColor(255, 239, 219);
+const int defaultFontSize = 12;
 
 class drawWidget : public QWidget
 {
@@ -28,7 +30,9 @@ public:
     void clear();
     void setMode(int);
 
-    void drawCircle(QPoint, QColor color = Qt::yellow, int size = defaultSize);
+    void drawText(QPoint, QString, QPainter&);
+    void drawLineText(QPoint, QPoint, QString, QPainter&);
+    void drawCircle(QPoint, int, QColor color = Qt::yellow, int size = defaultSize);
     void drawLine(int k, QPoint, QPoint, QColor = Qt::black, int width = 3);
     void drawArrowLine(QPoint, QPoint, QPainter&, QColor color = Qt::black, double size = 10.0);
     void drawLine(QPoint);
