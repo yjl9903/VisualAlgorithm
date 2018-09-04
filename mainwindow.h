@@ -27,6 +27,10 @@ private slots:
 
     void on_createEdge_triggered();
 
+    void on_animation_triggered();
+
+    void on_changeEdgeValue_triggered();
+
 private:
 //    void initToolBar();
     void setStatusBar();

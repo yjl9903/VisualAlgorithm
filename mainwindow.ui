@@ -39,6 +39,7 @@
     <property name="title">
      <string>设置</string>
     </property>
+    <addaction name="changeEdgeValue"/>
    </widget>
    <addaction name="menu"/>
   </widget>
@@ -58,6 +59,7 @@
    </attribute>
    <addaction name="createVertex"/>
    <addaction name="createEdge"/>
+   <addaction name="animation"/>
   </widget>
   <action name="createVertex">
    <property name="text">
@@ -67,6 +69,16 @@
   <action name="createEdge">
    <property name="text">
     <string>边</string>
+   </property>
+  </action>
+  <action name="animation">
+   <property name="text">
+    <string>动画</string>
+   </property>
+  </action>
+  <action name="changeEdgeValue">
+   <property name="text">
+    <string>显示边权</string>
    </property>
   </action>
  </widget>

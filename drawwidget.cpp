@@ -11,7 +11,9 @@ drawWidget::drawWidget(QWidget *parent) : QWidget(parent)
     pixLine->fill(QColor(0, 0, 0, 0));
     pixCircle = new QPixmap(size());
     pixCircle->fill(QColor(0, 0, 0, 0));
+
     mode = 0;
+    isShowEdgeValue = 0;
 }
 
 drawWidget::~drawWidget()
@@ -33,9 +35,25 @@ void drawWidget::clear()
 void drawWidget::setMode(int x)
 {
     mode = x;
+    if (mode == 2){
+        drawLineAnimation(graph.line(0), QColor(255, 185, 15));
+
+//        QEventLoop loop;
+//        QTimer::singleShot(200, &loop, SLOT(quit()));
+//        loop.exec();
+
+//        Line x = graph.line(0);
+//        drawLine(0, x.begin(), x.end(), x.color());
+    }
+}
+
+void drawWidget::setShowEdgeValue()
+{
+    isShowEdgeValue ^= 1;
 }
 
 void drawWidget::paintEvent(QPaintEvent *e){
+//    qDebug() << "paint";
     QPainter painter(this);
     painter.drawPixmap(QPoint(0, 0), *pixLine);
     painter.drawPixmap(QPoint(0, 0), *pixTemp);
@@ -61,7 +79,7 @@ void drawWidget::mousePressEvent(QMouseEvent *e)
 void drawWidget::mouseMoveEvent(QMouseEvent *e)
 {
     if (mode == 1 && isDrawLine){
-        drawLine(-1, beginPos, e->pos());
+        drawLine(-1, beginPos, e->pos(), QColor(255, 99, 71));
     }
 }
 

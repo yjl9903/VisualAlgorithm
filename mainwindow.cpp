@@ -56,3 +56,15 @@ void MainWindow::on_createEdge_triggered()
     draw->setMode(1);
     setStatusBar();
 }
+
+void MainWindow::on_animation_triggered()
+{
+    mode = 2;
+    draw->setMode(2);
+    setStatusBar();
+}
+
+void MainWindow::on_changeEdgeValue_triggered()
+{
+
+}

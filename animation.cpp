@@ -25,6 +25,7 @@ void drawWidget::drawText(QPoint pos, QString str, QPainter& painter)
 
 void drawWidget::drawLineText(QPoint beg, QPoint end, QString str, QPainter& painter)
 {
+    if (!isShowEdgeValue) return;
     painter.setFont(getFont());
     painter.setPen(QPen(Qt::black));
     QPoint pos, half = (beg + end) / 2, tPos = end - beg;
@@ -132,6 +133,7 @@ void drawWidget::drawArrowLine(QPoint begin, QPoint end, QPainter& painter, QCol
 void drawWidget::drawLine(int id, QPoint beg, QPoint end, QColor color, int width)
 {
     QPainter *painter = new QPainter(this);
+
     pixTemp->fill(QColor(0, 0, 0, 0));
     if (id == -1){
         painter->begin(pixTemp);
@@ -139,12 +141,17 @@ void drawWidget::drawLine(int id, QPoint beg, QPoint end, QColor color, int widt
     else{
         painter->begin(pixLine);
     }
+
+//    qDebug() << painter->isActive();
+
     painter->setPen(QPen(color, width, Qt::SolidLine, Qt::RoundCap, Qt::RoundJoin));
     painter->setRenderHint(QPainter::Antialiasing, true);
     painter->drawLine(beg, end);
 
+//    qDebug() << painter->isActive();
+
     if (id == -1){
-        drawArrowLine(beg, end, *painter);
+        drawArrowLine(beg, end, *painter, QColor(255, 99, 71));
     }
     else{
         QPoint v = end - beg;
@@ -161,4 +168,63 @@ void drawWidget::drawLine(int id, QPoint beg, QPoint end, QColor color, int widt
 
     painter->end();
     update();
+}
+
+void drawWidget::drawLineAnimation(Line x, QColor color)
+{
+    QPainter *painter = new QPainter(this);
+
+    painter->begin(pixTemp);
+
+    painter->setPen(QPen(color, defaultLineSize + 1, Qt::SolidLine, Qt::RoundCap, Qt::RoundJoin));
+    painter->setRenderHint(QPainter::Antialiasing, true);
+
+    QPoint v = x.v(), beg = x.begin();
+    double tx = v.x(), ty = v.y();
+    double t = sqrt(tx * tx + ty * ty);
+    int i = graph.getCircleIndex(x.end());
+    double k = (t - graph.circle(i).size() + 2) / t;
+    QPoint tag = beg + v * k;
+
+    for (double i = 0.01; i < k; i += 0.01){
+        QEventLoop loop;
+        QTimer::singleShot(50, &loop, SLOT(quit()));
+        loop.exec();
+//        pixTemp->fill(QColor(0, 0, 0, 0));
+        painter->drawLine(beg, beg + v * i);
+//        drawArrowLine(beg, beg + v * i, *painter, Qt::white, 25.0);
+        update();
+    }
+
+    drawArrowLine(beg, tag, *painter, color, 15.0);
+
+    painter->end();
+
+//    QTimer *timer = new QTimer(this);
+//    QTimeLine *timeline = new QTimeLine(1000);
+//    timeline->setFrameRange(0, 200);
+
+//    qDebug() << painter->isActive();
+
+//    connect(timeline, &QTimeLine::frameChanged, this, [=](int frame){
+//        qDebug() << frame;
+//        qDebug() << beg + v * (frame / 100.0);
+//        qDebug() << painter->isActive();
+
+//        pixTemp->fill(QColor(0, 0, 0));
+//        QPainter *painter = new QPainter(this);
+
+//        qDebug() << painter->begin(pixTemp);
+
+//        painter->setPen(QPen(color, 10, Qt::SolidLine, Qt::RoundCap, Qt::RoundJoin));
+//        painter->setRenderHint(QPainter::Antialiasing, true);
+
+//        painter->drawLine(beg, beg + v * (frame / 100.0));
+
+//        painter->end();
+
+//        update();
+//    });
+
+//    timeline->start();
 }

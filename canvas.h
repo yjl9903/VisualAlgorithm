@@ -79,6 +79,7 @@ public:
 
     QPoint begin(){return _begin;}
     QPoint end(){return _end;}
+    QPoint v(){return _end - _begin;}
 };
 
 class Container
