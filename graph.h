@@ -20,9 +20,11 @@ public:
         _line.clear();
         n = m = 0;
         memset(G, 0, sizeof G);
+        memset(Gid, -1, sizeof Gid);
     }
     int val(int i){return _val[i];}
     int size(){return n;}
+    int sizeLine(){return m;}
     int edge(int x, int y){return G[x][y];}
     int edgeID(int x, int y){return Gid[x][y];}
     int insert(QPoint pos)

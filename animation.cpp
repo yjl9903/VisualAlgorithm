@@ -135,6 +135,7 @@ void drawWidget::drawLine(int id, QPoint beg, QPoint end, QColor color, int widt
     QPainter *painter = new QPainter(this);
 
     pixTemp->fill(QColor(0, 0, 0, 0));
+
     if (id == -1){
         painter->begin(pixTemp);
     }
@@ -151,7 +152,7 @@ void drawWidget::drawLine(int id, QPoint beg, QPoint end, QColor color, int widt
 //    qDebug() << painter->isActive();
 
     if (id == -1){
-        drawArrowLine(beg, end, *painter, QColor(255, 99, 71));
+        drawArrowLine(beg, end, *painter, color);
     }
     else{
         QPoint v = end - beg;
@@ -159,15 +160,25 @@ void drawWidget::drawLine(int id, QPoint beg, QPoint end, QColor color, int widt
         double t = sqrt(x * x + y * y);
         int i = graph.getCircleIndex(end);
         double k = (t - graph.circle(i).size()) / t;
+
         QPoint tag = beg + v * k;
 
-        drawArrowLine(beg, tag, *painter);
+        drawArrowLine(beg, tag, *painter, color);
 
         drawLineText(beg, end, QString::number(graph.val(id)), *painter);
     }
 
     painter->end();
     update();
+}
+
+void drawWidget::drawLine(int beg, int end, QColor color, int width)
+{
+    if (!graph.edge(beg, end)) return;
+//    qDebug() << beg << end;
+    QPoint a = graph.circle(beg).pos(), b = graph.circle(end).pos();
+    qDebug() << beg << end;
+    drawLine(graph.edgeID(beg, end), a, b, color, width);
 }
 
 void drawWidget::drawLineAnimation(Line x, QColor color)
@@ -228,4 +239,12 @@ void drawWidget::drawLineAnimation(Line x, QColor color)
 //    });
 
 //    timeline->start();
+}
+
+void drawWidget::drawLineAnimation(int beg, int end, QColor color)
+{
+    if (beg >= graph.size() || end >= graph.size()) return;
+    int id = graph.edgeID(beg, end);
+    if (id == -1) return;
+    drawLineAnimation(graph.line(id), color);
 }

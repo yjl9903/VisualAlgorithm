@@ -43,8 +43,9 @@ public:
     ~drawWidget();
 
     void clear();
-    void setMode(int);
-    void setShowEdgeValue();
+    void cleanTemp();
+    bool setMode(int);
+    bool setShowEdgeValue();
 
     void repaint();
 
@@ -52,13 +53,15 @@ public:
     void drawLineText(QPoint, QPoint, QString, QPainter&);
     void drawCircle(Circle, QColor color = Qt::yellow);
     void drawLine(int k, QPoint, QPoint, QColor = Qt::black, int width = defaultLineSize);
+    void drawLine(int, int, QColor, int);
     void drawArrowLine(QPoint, QPoint, QPainter&, QColor color = Qt::black, double size = 10.0);
-    void drawLine(QPoint);
 
     void drawLineAnimation(Line, QColor);
+    void drawLineAnimation(int, int, QColor);
     void algorithm(QString, int);
 
     void dfs(int);
+    void bfs(int);
 
     void paintEvent(QPaintEvent *);
 
@@ -66,10 +69,12 @@ private:
     QPixmap *pixTemp, *pixLine, *pixCircle;
 
     int mode = 0;
-    bool isDrawLine, isShowEdgeValue;
+    bool isDrawLine, isShowEdgeValue, isRun;
 
     QPoint beginPos, endPos;
     Circle beginCircle;
+
+    QColor lineColor, circleColor;
 
     Graph graph;
 

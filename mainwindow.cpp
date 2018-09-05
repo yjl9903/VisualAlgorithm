@@ -53,20 +53,23 @@ void MainWindow::setStatusBar()
 void MainWindow::on_createVertex_triggered()
 {
     mode = 0;
-    draw->setMode(0);
-    setStatusBar();
+    if (draw->setMode(0)){
+        setStatusBar();
+    }
 }
 
 void MainWindow::on_createEdge_triggered()
 {
     mode = 1;
-    draw->setMode(1);
-    setStatusBar();
+    if (draw->setMode(1)){
+        setStatusBar();
+    }
 }
 
 void MainWindow::on_animation_triggered()
 {
     mode = 2;
+
     draw->setMode(2);
     setStatusBar();
 
@@ -75,5 +78,5 @@ void MainWindow::on_animation_triggered()
 
 void MainWindow::on_changeEdgeValue_triggered()
 {
-
+    draw->setShowEdgeValue();
 }

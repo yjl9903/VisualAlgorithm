@@ -14,6 +14,7 @@ drawWidget::drawWidget(QWidget *parent) : QWidget(parent)
 
     mode = 0;
     isShowEdgeValue = 0;
+    isRun = 0;
 }
 
 drawWidget::~drawWidget()
@@ -32,9 +33,41 @@ void drawWidget::clear()
     update();
 }
 
-void drawWidget::setMode(int x)
+void drawWidget::cleanTemp()
 {
+    pixTemp->fill(QColor(0, 0, 0, 0));
+    update();
+}
+
+void drawWidget::repaint()
+{
+    pixTemp->fill(QColor(0, 0, 0, 0));
+    pixCircle->fill(QColor(0, 0, 0, 0));
+    pixLine->fill(QColor(0, 0, 0, 0));
+    for (int i = 0; i < graph.size(); i++){
+        Circle t = graph.circle(i);
+        drawCircle(t, t.color());
+    }
+
+    for (int i = 0; i < graph.sizeLine(); i++){
+        Line t = graph.line(i);
+        drawLine(i, t.begin(), t.end(), t.color());
+    }
+}
+
+bool drawWidget::setShowEdgeValue()
+{
+    if (isRun) return false;
+    isShowEdgeValue ^= 1;
+    repaint();
+    return true;
+}
+
+bool drawWidget::setMode(int x)
+{
+    if (isRun) return false;
     mode = x;
+    return true;
 //    if (mode == 2){
 //        drawLineAnimation(graph.line(0), QColor(255, 185, 15));
 
@@ -45,11 +78,6 @@ void drawWidget::setMode(int x)
 //        Line x = graph.line(0);
 //        drawLine(0, x.begin(), x.end(), x.color());
 //    }
-}
-
-void drawWidget::setShowEdgeValue()
-{
-    isShowEdgeValue ^= 1;
 }
 
 void drawWidget::paintEvent(QPaintEvent *e){
