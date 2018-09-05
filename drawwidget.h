@@ -16,15 +16,22 @@
 #include <QMouseEvent>
 #include <QPaintEvent>
 
+// #include <QTimeLine>
+// #include <QThread>
 #include <QTimer>
-#include <QTimeLine>
-#include <QThread>
 #include <QEventLoop>
 
 const QColor backgroundColor = QColor(255, 239, 219);
 const QColor lineAnimeColor = QColor(250, 128, 114);
 const int defaultFontSize = 12;
 const int defaultLineSize = 3;
+
+inline void sleep(int time)
+{
+    QEventLoop loop;
+    QTimer::singleShot(time, &loop, SLOT(quit()));
+    loop.exec();
+}
 
 class drawWidget : public QWidget
 {
@@ -49,6 +56,9 @@ public:
     void drawLine(QPoint);
 
     void drawLineAnimation(Line, QColor);
+    void algorithm(QString, int);
+
+    void dfs(int);
 
     void paintEvent(QPaintEvent *);
 
@@ -62,6 +72,8 @@ private:
     Circle beginCircle;
 
     Graph graph;
+
+    bool vis[100];
 
 signals:
 

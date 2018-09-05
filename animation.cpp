@@ -186,10 +186,11 @@ void drawWidget::drawLineAnimation(Line x, QColor color)
     double k = (t - graph.circle(i).size() + 2) / t;
     QPoint tag = beg + v * k;
 
-    for (double i = 0.01; i < k; i += 0.01){
-        QEventLoop loop;
-        QTimer::singleShot(50, &loop, SLOT(quit()));
-        loop.exec();
+    for (double i = 0; i < k; i += 0.01){
+//        QEventLoop loop;
+//        QTimer::singleShot(50, &loop, SLOT(quit()));
+//        loop.exec();
+        sleep(20);
 //        pixTemp->fill(QColor(0, 0, 0, 0));
         painter->drawLine(beg, beg + v * i);
 //        drawArrowLine(beg, beg + v * i, *painter, Qt::white, 25.0);

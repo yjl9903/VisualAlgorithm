@@ -27,7 +27,8 @@ SOURCES += \
         mainwindow.cpp \
     drawwidget.cpp \
     canvas.cpp \
-    animation.cpp
+    animation.cpp \
+    graph.cpp
 
 HEADERS += \
         mainwindow.h \

@@ -35,8 +35,8 @@ void drawWidget::clear()
 void drawWidget::setMode(int x)
 {
     mode = x;
-    if (mode == 2){
-        drawLineAnimation(graph.line(0), QColor(255, 185, 15));
+//    if (mode == 2){
+//        drawLineAnimation(graph.line(0), QColor(255, 185, 15));
 
 //        QEventLoop loop;
 //        QTimer::singleShot(200, &loop, SLOT(quit()));
@@ -44,7 +44,7 @@ void drawWidget::setMode(int x)
 
 //        Line x = graph.line(0);
 //        drawLine(0, x.begin(), x.end(), x.color());
-    }
+//    }
 }
 
 void drawWidget::setShowEdgeValue()

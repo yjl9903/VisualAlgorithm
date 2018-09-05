@@ -19,6 +19,11 @@ MainWindow::MainWindow(QWidget *parent) :
     statusLabel[1] = new QLabel(this);
     statusLabel[1]->setText("顶点");
     statusBar()->addWidget(statusLabel[1]);
+
+    inputBeg = new QLineEdit(this);
+    inputBeg->setMaximumWidth(200);
+    inputBeg->setText("0");
+    ui->mainToolBar->addWidget(inputBeg);
 }
 
 MainWindow::~MainWindow()
@@ -40,6 +45,8 @@ void MainWindow::setStatusBar()
         statusLabel[1]->setText("顶点");
     else if (mode == 1)
         statusLabel[1]->setText("边");
+    else if (mode == 2)
+        statusLabel[1]->setText("动画");
     statusBar()->addWidget(statusLabel[1]);
 }
 
@@ -62,6 +69,8 @@ void MainWindow::on_animation_triggered()
     mode = 2;
     draw->setMode(2);
     setStatusBar();
+
+    draw->algorithm("dfs", inputBeg->text().toInt());
 }
 
 void MainWindow::on_changeEdgeValue_triggered()

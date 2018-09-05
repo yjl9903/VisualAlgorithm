@@ -7,6 +7,7 @@
 #include <QPoint>
 #include <QVector>
 #include <QLabel>
+#include <QLineEdit>
 #include <ctime>
 #include <cstdlib>
 
@@ -35,7 +36,9 @@ private:
 //    void initToolBar();
     void setStatusBar();
 
-    QLabel* statusLabel[2];
+    QLabel *statusLabel[2];
+
+    QLineEdit *inputBeg;
 
     Ui::MainWindow *ui;
     drawWidget *draw;
