@@ -4,6 +4,7 @@
 #include "drawwidget.h"
 #include <QMainWindow>
 #include <QToolBar>
+#include <QSlider>
 #include <QPoint>
 #include <QVector>
 #include <QLabel>

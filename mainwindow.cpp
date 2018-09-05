@@ -24,6 +24,13 @@ MainWindow::MainWindow(QWidget *parent) :
     inputBeg->setMaximumWidth(200);
     inputBeg->setText("0");
     ui->mainToolBar->addWidget(inputBeg);
+
+    QSlider *slider = new QSlider(Qt::Horizontal);
+    slider->setMinimum(0);
+    slider->setMaximum(100);
+    slider->setValue(50);
+    slider->setMaximumWidth(200);
+    ui->mainToolBar->addWidget(slider);
 }
 
 MainWindow::~MainWindow()

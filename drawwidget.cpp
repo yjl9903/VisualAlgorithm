@@ -5,6 +5,12 @@ drawWidget::drawWidget(QWidget *parent) : QWidget(parent)
     setMinimumSize(1440, 840);
     setAutoFillBackground(true);
     setPalette(QPalette(backgroundColor));
+
+    list = new QListWidget(this);
+    list->setGeometry(950, 560, 500, 400);
+    list->setFocusPolicy(Qt::NoFocus);
+    list->hide();
+
     pixTemp = new QPixmap(size());
     pixTemp->fill(QColor(0, 0, 0, 0));
     pixLine = new QPixmap(size());

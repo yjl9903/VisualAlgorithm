@@ -5,6 +5,9 @@
 #include "graph.h"
 #include <cmath>
 #include <QWidget>
+#include <QListWidget>
+#include <QListWidgetItem>
+#include <QSlider>
 #include <QFont>
 #include <QPair>
 #include <QColor>
@@ -33,6 +36,8 @@ inline void sleep(int time)
     loop.exec();
 }
 
+inline QFont getFont();
+
 class drawWidget : public QWidget
 {
     Q_OBJECT
@@ -46,6 +51,8 @@ public:
     void cleanTemp();
     bool setMode(int);
     bool setShowEdgeValue();
+
+    void setListWidget(QString);
 
     void repaint();
 
@@ -66,6 +73,9 @@ public:
     void paintEvent(QPaintEvent *);
 
 private:
+    QListWidget *list;
+    QListWidgetItem* item[10];
+
     QPixmap *pixTemp, *pixLine, *pixCircle;
 
     int mode = 0;
