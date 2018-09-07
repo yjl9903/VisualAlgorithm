@@ -4,6 +4,7 @@
 #include "canvas.h"
 #include "graph.h"
 #include <cmath>
+#include <cstdio>
 #include <QWidget>
 #include <QListWidget>
 #include <QListWidgetItem>
@@ -52,9 +53,10 @@ public:
     bool setMode(int);
     bool setShowEdgeValue();
 
-    void setListWidget(QString);
+    void setListWidget(QString, int);
 
     void repaint();
+    void loadGraph(int);
 
     void drawText(QPoint, QString, QPainter&);
     void drawLineText(QPoint, QPoint, QString, QPainter&);
@@ -80,6 +82,7 @@ private:
 
     int mode = 0;
     bool isDrawLine, isShowEdgeValue, isRun;
+    int speed = 500;
 
     QPoint beginPos, endPos;
     Circle beginCircle;
@@ -96,6 +99,8 @@ public slots:
     void mousePressEvent(QMouseEvent *e);
     void mouseMoveEvent(QMouseEvent *e);
     void mouseReleaseEvent(QMouseEvent *e);
+
+    void setSpeed(int);
 };
 
 #endif // DRAWWIDGET_H

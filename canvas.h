@@ -98,6 +98,7 @@ public:
     bool isInCircle(QPoint x, int range = 0);
     int getCircleIndex(QPoint x);
 
+    virtual void clear() = 0;
     virtual int insert(QPoint) = 0;
     virtual int link(QPoint, QPoint) = 0;
 };

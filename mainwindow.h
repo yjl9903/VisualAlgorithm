@@ -5,6 +5,8 @@
 #include <QMainWindow>
 #include <QToolBar>
 #include <QSlider>
+#include <QPushButton>
+#include <QAction>
 #include <QPoint>
 #include <QVector>
 #include <QLabel>
@@ -33,9 +35,28 @@ private slots:
 
     void on_changeEdgeValue_triggered();
 
+    void on_load1_triggered();
+
+    void on_load2_triggered();
+
+    void on_load3_triggered();
+
+    void on_load4_triggered();
+
+    void on_load5_triggered();
+
+    void on_load6_triggered();
+
+    void on_load7_triggered();
+
+    void on_actiondfs_triggered();
+
+    void on_actionbfs_triggered();
+
 private:
 //    void initToolBar();
     void setStatusBar();
+    void setToolBar();
 
     QLabel *statusLabel[2];
 
@@ -45,6 +66,7 @@ private:
     drawWidget *draw;
 
     int mode = 0;
+    QString running;
 };
 
 #endif // MAINWINDOW_H

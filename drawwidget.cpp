@@ -1,4 +1,5 @@
 #include "drawwidget.h"
+#include <string>
 
 drawWidget::drawWidget(QWidget *parent) : QWidget(parent)
 {
@@ -59,6 +60,26 @@ void drawWidget::repaint()
         Line t = graph.line(i);
         drawLine(i, t.begin(), t.end(), t.color());
     }
+}
+
+void drawWidget::loadGraph(int id)
+{
+    if (isRun) return;
+    graph.clear();
+    std::string str = "E:\\Graph\\" + std::to_string(id) + ".txt";
+    freopen(str.c_str(), "r", stdin);
+    int n, m;
+    scanf("%d%d", &n, &m);
+    for (int i = 0, x, y; i < n; i++){
+        scanf("%d%d", &x, &y);
+        graph.insert(QPoint(x, y));
+    }
+    for (int i = 0, x, y; i < m; i++){
+        scanf("%d%d", &x, &y);
+        graph.link(graph.circle(x).pos(), graph.circle(y).pos());
+    }
+    fclose(stdin);
+    repaint();
 }
 
 bool drawWidget::setShowEdgeValue()

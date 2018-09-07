@@ -3,6 +3,7 @@
 
 #include "canvas.h"
 #include <cstring>
+#include <queue>
 
 class Graph : public Container
 {
@@ -49,7 +50,15 @@ public:
         return m++;
     }
 
-//    void algorithm(QString, int);
+    void clear()
+    {
+        _circle.clear();
+        _line.clear();
+        _val.clear();
+        n = m = 0;
+        memset(G, 0, sizeof G);
+        memset(Gid, 0, sizeof Gid);
+    }
 };
 
 #endif // GRAPH_H
