@@ -19,6 +19,7 @@ MainWindow::MainWindow(QWidget *parent) :
     statusLabel[1] = new QLabel(this);
     statusLabel[1]->setText("顶点");
     statusBar()->addWidget(statusLabel[1]);
+    setAttribute(Qt::WA_QuitOnClose);
 
 }
 

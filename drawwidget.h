@@ -37,7 +37,7 @@ inline void sleep(int time)
     loop.exec();
 }
 
-inline QFont getFont();
+QFont getFont();
 
 class drawWidget : public QWidget
 {
