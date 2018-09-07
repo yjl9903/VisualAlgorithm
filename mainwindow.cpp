@@ -13,11 +13,11 @@ MainWindow::MainWindow(QWidget *parent) :
     setCentralWidget(draw);
 
     statusLabel[0] = new QLabel(this);
-    statusLabel[0]->setText("画板");
+    statusLabel[0]->setText("画板  ");
     statusBar()->addWidget(statusLabel[0]);
 
     statusLabel[1] = new QLabel(this);
-    statusLabel[1]->setText("顶点");
+    statusLabel[1]->setText("顶点  ");
     statusBar()->addWidget(statusLabel[1]);
 
 }
