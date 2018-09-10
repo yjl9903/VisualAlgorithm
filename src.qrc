@@ -1,0 +1,9 @@
+<RCC>
+    <qresource prefix="/icon">
+        <file>icon/clear.png</file>
+        <file>icon/edge.png</file>
+        <file>icon/show.png</file>
+        <file>icon/vertex.png</file>
+        <file>icon/withdraw.png</file>
+    </qresource>
+</RCC>

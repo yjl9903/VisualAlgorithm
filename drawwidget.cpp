@@ -147,6 +147,11 @@ void drawWidget::mouseReleaseEvent(QMouseEvent *e)
 {
     endPos = e->pos();
     if (mode == 0){
+        if (e->pos().x() + defaultSize >= this->width()) return;
+        if (e->pos().x() - defaultSize <= 0) return;
+        if (e->pos().y() + defaultSize >= this->height()) return;
+        if (e->pos().y() - defaultSize <= 0) return;
+
         int id = graph.insert(e->pos());
         if (id == -1)
             return;

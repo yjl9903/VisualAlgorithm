@@ -7,19 +7,19 @@
     <x>0</x>
     <y>0</y>
     <width>1440</width>
-    <height>950</height>
+    <height>960</height>
    </rect>
   </property>
   <property name="minimumSize">
    <size>
     <width>1440</width>
-    <height>950</height>
+    <height>960</height>
    </size>
   </property>
   <property name="maximumSize">
    <size>
     <width>1440</width>
-    <height>950</height>
+    <height>960</height>
    </size>
   </property>
   <property name="font">
@@ -102,11 +102,19 @@
    <addaction name="clearDraw"/>
   </widget>
   <action name="createVertex">
+   <property name="icon">
+    <iconset resource="src.qrc">
+     <normaloff>:/icon/icon/vertex.png</normaloff>:/icon/icon/vertex.png</iconset>
+   </property>
    <property name="text">
     <string>顶点</string>
    </property>
   </action>
   <action name="createEdge">
+   <property name="icon">
+    <iconset resource="src.qrc">
+     <normaloff>:/icon/icon/edge.png</normaloff>:/icon/icon/edge.png</iconset>
+   </property>
    <property name="text">
     <string>边</string>
    </property>
@@ -167,22 +175,36 @@
    </property>
   </action>
   <action name="showDraw">
+   <property name="icon">
+    <iconset resource="src.qrc">
+     <normaloff>:/icon/icon/show.png</normaloff>:/icon/icon/show.png</iconset>
+   </property>
    <property name="text">
     <string>画板</string>
    </property>
   </action>
   <action name="clearDraw">
+   <property name="icon">
+    <iconset resource="src.qrc">
+     <normaloff>:/icon/icon/clear.png</normaloff>:/icon/icon/clear.png</iconset>
+   </property>
    <property name="text">
     <string>清空</string>
    </property>
   </action>
   <action name="withdrawDraw">
+   <property name="icon">
+    <iconset resource="src.qrc">
+     <normaloff>:/icon/icon/withdraw.png</normaloff>:/icon/icon/withdraw.png</iconset>
+   </property>
    <property name="text">
     <string>撤销</string>
    </property>
   </action>
  </widget>
  <layoutdefault spacing="6" margin="11"/>
- <resources/>
+ <resources>
+  <include location="src.qrc"/>
+ </resources>
  <connections/>
 </ui>

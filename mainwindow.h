@@ -62,9 +62,9 @@ private slots:
 private:
 //    void initToolBar();
     void setStatusBar();
-    void setToolBar();
+    void setToolBar(int);
 
-    QLabel *statusLabel[2];
+    QLabel *statusLabel[2], *space[5];
 
     QLineEdit *inputBeg;
 
