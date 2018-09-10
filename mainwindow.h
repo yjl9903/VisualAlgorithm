@@ -62,7 +62,7 @@ private slots:
 private:
 //    void initToolBar();
     void setStatusBar();
-    void setToolBar();
+    void setToolBar(int);
 
     QLabel *statusLabel[2];
 

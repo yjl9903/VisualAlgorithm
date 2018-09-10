@@ -21,6 +21,8 @@ MainWindow::MainWindow(QWidget *parent) :
     statusBar()->addWidget(statusLabel[1]);
     setAttribute(Qt::WA_QuitOnClose);
 
+//    space[0]->setFixedWidth(10);
+    setToolBar(0);
 }
 
 MainWindow::~MainWindow()
@@ -47,45 +49,59 @@ void MainWindow::setStatusBar()
     statusBar()->addWidget(statusLabel[1]);
 }
 
-void MainWindow::setToolBar()
+void MainWindow::setToolBar(int type)
 {
     ui->mainToolBar->clear();
 
 //    ui->mainToolBar->addAction(ui->createVertex);
 //    ui->mainToolBar->addAction(ui->createEdge);
 
-    QLabel *space[4], *start = new QLabel(this);
-    for (int i = 0; i < 4; i++)
+    QLabel *space[5];
+    for (int i = 0; i < 5; i++)
         space[i] = new QLabel(this), space[i]->setFixedWidth(20);
-    space[0]->setFixedWidth(10);
 
-//    ui->mainToolBar->addWidget(space[0]);
+    if (type == 0){
+        ui->mainToolBar->addAction(ui->createVertex);
+        ui->mainToolBar->addWidget(space[0]);
+        ui->mainToolBar->addAction(ui->createEdge);
+        ui->mainToolBar->addWidget(space[1]);
+        ui->mainToolBar->addAction(ui->withdrawDraw);
+        ui->mainToolBar->addWidget(space[2]);
+        ui->mainToolBar->addAction(ui->clearDraw);
+    }
 
-    ui->mainToolBar->addAction(ui->showDraw);
-    ui->mainToolBar->addWidget(space[3]);
+    if (type == 1){
+        QLabel *start = new QLabel(this);
 
-    start->setText("起点:  ");
-    ui->mainToolBar->addWidget(start);
+        // ui->mainToolBar->addWidget(space[0]);
 
-    inputBeg = new QLineEdit(this);
-    inputBeg->setMaximumWidth(200);
-    inputBeg->setText("0");
-    ui->mainToolBar->addWidget(inputBeg);
+        ui->mainToolBar->addAction(ui->showDraw);
+        ui->mainToolBar->addWidget(space[3]);
 
-    ui->mainToolBar->addWidget(space[1]);
+        start->setText("起点:  ");
+        ui->mainToolBar->addWidget(start);
 
-    QSlider *slider = new QSlider(Qt::Horizontal);
-    slider->setMinimum(0);
-    slider->setMaximum(100);
-    slider->setValue(50);
-    slider->setMaximumWidth(200);
-    ui->mainToolBar->addWidget(slider);
+        inputBeg = new QLineEdit(this);
+        inputBeg->setMaximumWidth(200);
+        inputBeg->setText("0");
+        ui->mainToolBar->addWidget(inputBeg);
 
-    connect(slider, SIGNAL(valueChanged(int)), draw, SLOT(setSpeed(int)));
+        ui->mainToolBar->addWidget(space[1]);
 
-    ui->mainToolBar->addWidget(space[2]);
+        QSlider *slider = new QSlider(Qt::Horizontal);
+        slider->setMinimum(0);
+        slider->setMaximum(100);
+        slider->setValue(50);
+        slider->setMaximumWidth(200);
+        ui->mainToolBar->addWidget(slider);
 
-    ui->mainToolBar->addAction(ui->animation);
+        connect(slider, SIGNAL(valueChanged(int)), draw, SLOT(setSpeed(int)));
+
+        ui->mainToolBar->addWidget(space[2]);
+
+        ui->animation->setText("Let's " + running + "!");
+        ui->mainToolBar->addAction(ui->animation);
+    }
 }
 
 void MainWindow::on_createVertex_triggered()
@@ -164,7 +180,7 @@ void MainWindow::on_actiondfs_triggered()
     mode = 2;
     draw->setSpeed(50);
     setStatusBar();
-    setToolBar();
+    setToolBar(1);
 
 }
 
@@ -174,8 +190,7 @@ void MainWindow::on_actionbfs_triggered()
     mode = 2;
     draw->setSpeed(50);
     setStatusBar();
-    setToolBar();
-
+    setToolBar(1);
 }
 
 
@@ -186,12 +201,13 @@ void MainWindow::on_showDraw_triggered()
 
         draw->repaint();
 
-        ui->mainToolBar->clear();
+        setToolBar(0);
+//        ui->mainToolBar->clear();
 
-        ui->mainToolBar->addAction(ui->createVertex);
-        ui->mainToolBar->addAction(ui->createEdge);
-        ui->mainToolBar->addAction(ui->withdrawDraw);
-        ui->mainToolBar->addAction(ui->clearDraw);
+//        ui->mainToolBar->addAction(ui->createVertex);
+//        ui->mainToolBar->addAction(ui->createEdge);
+//        ui->mainToolBar->addAction(ui->withdrawDraw);
+//        ui->mainToolBar->addAction(ui->clearDraw);
 
         setStatusBar();
     }
