@@ -64,7 +64,7 @@ private:
     void setStatusBar();
     void setToolBar(int);
 
-    QLabel *statusLabel[2];
+    QLabel *statusLabel[2], *space[5];
 
     QLineEdit *inputBeg;
 
