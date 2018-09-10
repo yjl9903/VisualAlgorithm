@@ -43,13 +43,13 @@
    </property>
    <widget class="QMenu" name="menu">
     <property name="title">
-     <string>设置</string>
+     <string> 设置 </string>
     </property>
     <addaction name="changeEdgeValue"/>
    </widget>
    <widget class="QMenu" name="menu_2">
     <property name="title">
-     <string>图</string>
+     <string>  图  </string>
     </property>
     <addaction name="load1"/>
     <addaction name="load2"/>
@@ -61,12 +61,12 @@
    </widget>
    <widget class="QMenu" name="menu_3">
     <property name="title">
-     <string>关于</string>
+     <string> 关于 </string>
     </property>
    </widget>
    <widget class="QMenu" name="menu_4">
     <property name="title">
-     <string>算法</string>
+     <string> 算法 </string>
     </property>
     <addaction name="actiondfs"/>
     <addaction name="actionbfs"/>

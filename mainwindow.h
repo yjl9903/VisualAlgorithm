@@ -73,6 +73,7 @@ private:
 
     int mode = 0;
     QString running;
+    bool isRunning;
 };
 
 #endif // MAINWINDOW_H

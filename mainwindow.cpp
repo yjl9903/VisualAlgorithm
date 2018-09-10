@@ -23,6 +23,8 @@ MainWindow::MainWindow(QWidget *parent) :
 
 //    space[0]->setFixedWidth(10);
     setToolBar(0);
+
+    isRunning = 0;
 }
 
 MainWindow::~MainWindow()
@@ -123,11 +125,16 @@ void MainWindow::on_createEdge_triggered()
 void MainWindow::on_animation_triggered()
 {
 //    mode = 2;
+    if (isRunning) return;
+    isRunning = 1;
     draw->setMode(2);
 //    setStatusBar();
 
-    draw->algorithm(running, inputBeg->text().toInt());
+    bool ok;
+    inputBeg->text().toInt(&ok);
+    if (ok) draw->algorithm(running, inputBeg->text().toInt());
 
+    isRunning = 0;
 //    ui->mainToolBar->clear();
 
 //    ui->mainToolBar->addAction(ui->createVertex);
@@ -176,6 +183,7 @@ void MainWindow::on_load7_triggered()
 
 void MainWindow::on_actiondfs_triggered()
 {
+    if (isRunning) return;
     running = "dfs";
     mode = 2;
     draw->setSpeed(50);
@@ -186,6 +194,7 @@ void MainWindow::on_actiondfs_triggered()
 
 void MainWindow::on_actionbfs_triggered()
 {
+    if (isRunning) return;
     running = "bfs";
     mode = 2;
     draw->setSpeed(50);

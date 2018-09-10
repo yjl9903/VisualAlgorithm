@@ -45,6 +45,7 @@ void drawWidget::setListWidget(QString str, QString queue = "")
 
 void drawWidget::algorithm(QString str, int begID)
 {
+    if (begID < 0 || begID > graph.size()) return;
     isRun = 1;
     repaint();
 //    setListWidget(str, begID);
