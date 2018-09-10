@@ -59,7 +59,7 @@ void MainWindow::setToolBar()
         space[i] = new QLabel(this), space[i]->setFixedWidth(20);
     space[0]->setFixedWidth(10);
 
-    ui->mainToolBar->addWidget(space[0]);
+//    ui->mainToolBar->addWidget(space[0]);
 
     ui->mainToolBar->addAction(ui->showDraw);
     ui->mainToolBar->addWidget(space[3]);

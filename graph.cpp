@@ -21,6 +21,7 @@ void drawWidget::setListWidget(QString str, QString queue = "")
     list->clear();
     list->show();
     if (str == "dfs"){
+        list->setGeometry(950, 560, 500, 400);
         item[0] = setItem("function dfs(u):");
         item[1] = setItem("    for each neighbour v of u:");
         item[2] = setItem("        if v has not been visted:");
@@ -29,7 +30,8 @@ void drawWidget::setListWidget(QString str, QString queue = "")
             list->addItem(item[i]);
     }
     if (str == "bfs"){
-        item[0] = setItem("queue q = {" + queue + "}");
+        list->setGeometry(850, 560, 600, 400);
+        item[0] = setItem("queue q = { " + queue + " }");
         item[1] = setItem("function bfs():");
         item[2] = setItem("    while q.empty() == false:");
         item[3] = setItem("        u = q.front(), q.pop()");
@@ -112,14 +114,21 @@ void drawWidget::dfs(int u)
 
 QString getQueue(QVector<int> v)
 {
-
+    QString s = "";
+    if (v.empty()) return s;
+    int last = v.back(); v.pop_back();
+    for (auto &x : v){
+        s += QString::number(x) + ", ";
+    }
+    s += QString::number(last);
+    return s;
 }
 
 void drawWidget::bfs(int beg)
 {
 //    drawCircle(graph.circle(beg), QColor(154, 255, 154));
     std::queue<int> q; q.push(beg); vis[beg] = 1;
-    QVector<int> v; v.append(beg);
+    QVector<int> vec; vec.append(beg);
 
     item[1]->setTextColor(Qt::red);
     sleep(speed);
@@ -129,7 +138,8 @@ void drawWidget::bfs(int beg)
         item[2]->setTextColor(Qt::red);
         sleep(speed);
 
-        int u = q.front(); q.pop();
+        int u = q.front(); q.pop(); vec.pop_front();
+        setListWidget("bfs", getQueue(vec));
         Circle tot = graph.circle(u);
 
         item[2]->setTextColor(Qt::black);
@@ -156,9 +166,12 @@ void drawWidget::bfs(int beg)
             sleep(speed);
 
             if (!vis[i]){
+                vec.append(i);
+                setListWidget("bfs", getQueue(vec));
                 item[5]->setTextColor(Qt::black);
                 item[6]->setTextColor(Qt::red);
                 sleep(speed);
+
                 vis[i] = 1;
                 q.push(i);
             }
