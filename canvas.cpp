@@ -5,7 +5,7 @@ void ColorList::init()
     if (!v.empty()) return;
 //        qDebug() << "haha";
 
-    freopen("D:\\color.txt", "r", stdin);
+    freopen("E:\\color.txt", "r", stdin);
     int r, g, b;
     while (~scanf("%d%d%d", &r, &g, &b)){
 //            qDebug("%d %d %d", r, g, b);

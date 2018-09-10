@@ -24,7 +24,8 @@ MainWindow::MainWindow(QWidget *parent) :
 //    space[0]->setFixedWidth(10);
     setToolBar(0);
 
-    isRunning = 0;
+    isRunning = isShowEdgeValue = 0;
+    isShowBoard = 1;
 }
 
 MainWindow::~MainWindow()
@@ -143,7 +144,28 @@ void MainWindow::on_animation_triggered()
 
 void MainWindow::on_changeEdgeValue_triggered()
 {
-    draw->setShowEdgeValue();
+    if (draw->setShowEdgeValue()){
+        isShowEdgeValue ^= 1;
+        if (isShowEdgeValue){
+            ui->changeEdgeValue->setText("关闭边权");
+        }
+        else{
+            ui->changeEdgeValue->setText("显示边权");
+        }
+    }
+}
+
+void MainWindow::on_changeBoard_triggered()
+{
+    if (!isRunning) return;
+    isShowBoard ^= 1;
+    if (isShowBoard){
+        ui->changeBoard->setText("关闭伪代码");
+    }
+    else {
+        ui->changeBoard->setText("开启伪代码");
+    }
+    draw->setShowBoard();
 }
 
 void MainWindow::on_load1_triggered()
@@ -231,3 +253,4 @@ void MainWindow::on_withdrawDraw_triggered()
 {
     draw->withdraw();
 }
+

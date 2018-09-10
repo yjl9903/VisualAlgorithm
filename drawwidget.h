@@ -52,6 +52,7 @@ public:
     void cleanTemp();
     bool setMode(int);
     bool setShowEdgeValue();
+    bool setShowBoard();
 
     void setListWidget(QString, QString);
 
@@ -82,7 +83,7 @@ private:
     QPixmap *pixTemp, *pixLine, *pixCircle;
 
     int mode = 0;
-    bool isDrawLine, isShowEdgeValue, isRun;
+    bool isDrawLine, isShowEdgeValue, isShowBoard, isRun;
     int speed = 500;
 
     QPoint beginPos, endPos;

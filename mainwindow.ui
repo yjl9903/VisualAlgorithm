@@ -29,7 +29,7 @@
    </font>
   </property>
   <property name="windowTitle">
-   <string>MainWindow</string>
+   <string>VisuALgorithm</string>
   </property>
   <widget class="QWidget" name="centralWidget"/>
   <widget class="QMenuBar" name="menuBar">
@@ -46,6 +46,7 @@
      <string> 设置 </string>
     </property>
     <addaction name="changeEdgeValue"/>
+    <addaction name="changeBoard"/>
    </widget>
    <widget class="QMenu" name="menu_2">
     <property name="title">
@@ -63,6 +64,7 @@
     <property name="title">
      <string> 关于 </string>
     </property>
+    <addaction name="aboutWriter"/>
    </widget>
    <widget class="QMenu" name="menu_4">
     <property name="title">
@@ -199,6 +201,16 @@
    </property>
    <property name="text">
     <string>撤销</string>
+   </property>
+  </action>
+  <action name="changeBoard">
+   <property name="text">
+    <string>关闭伪代码</string>
+   </property>
+  </action>
+  <action name="aboutWriter">
+   <property name="text">
+    <string>关于作者</string>
    </property>
   </action>
  </widget>

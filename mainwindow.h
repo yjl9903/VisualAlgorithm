@@ -59,6 +59,8 @@ private slots:
 
     void on_withdrawDraw_triggered();
 
+    void on_changeBoard_triggered();
+
 private:
 //    void initToolBar();
     void setStatusBar();
@@ -73,7 +75,7 @@ private:
 
     int mode = 0;
     QString running;
-    bool isRunning;
+    bool isRunning, isShowEdgeValue, isShowBoard;
 };
 
 #endif // MAINWINDOW_H

@@ -22,6 +22,7 @@ drawWidget::drawWidget(QWidget *parent) : QWidget(parent)
     mode = 0;
     isShowEdgeValue = 0;
     isRun = 0;
+    isShowBoard = 1;
 }
 
 drawWidget::~drawWidget()
@@ -92,6 +93,14 @@ bool drawWidget::setShowEdgeValue()
     if (isRun) return false;
     isShowEdgeValue ^= 1;
     repaint();
+    return true;
+}
+
+bool drawWidget::setShowBoard()
+{
+    isShowBoard ^= 1;
+    if (isShowBoard) list->show();
+    else list->hide();
     return true;
 }
 

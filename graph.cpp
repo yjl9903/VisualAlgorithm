@@ -19,7 +19,7 @@ QListWidgetItem* setItem(QString str)
 void drawWidget::setListWidget(QString str, QString queue = "")
 {
     list->clear();
-    list->show();
+    if(isShowBoard) list->show();
     if (str == "dfs"){
         list->setGeometry(950, 560, 500, 400);
         item[0] = setItem("function dfs(u):");
@@ -98,6 +98,7 @@ void drawWidget::dfs(int u)
         }
         else {
             sleep(speed);
+            item[2]->setTextColor(Qt::black);
             drawLine(u, i, Qt::gray, defaultLineSize + 1);
             drawCircle(v, v.color());
         }
