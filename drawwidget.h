@@ -57,6 +57,7 @@ public:
 
     void repaint();
     void loadGraph(int);
+    void withdraw();
 
     void drawText(QPoint, QString, QPainter&);
     void drawLineText(QPoint, QPoint, QString, QPainter&);
@@ -92,6 +93,8 @@ private:
     Graph graph;
 
     bool vis[100];
+
+    QVector<int> ope;
 
 signals:
 

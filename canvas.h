@@ -103,6 +103,32 @@ public:
     virtual int link(QPoint, QPoint) = 0;
 };
 
+//struct Operator
+//{
+//private:
+//    Circle x;
+//    Line y;
+//    int _type;
+//public:
+//    Operator(Circle a)
+//    {
+//        _type = 0;
+//        x = a;
+//    }
+//    Operator(Line a)
+//    {
+//        _type = 1;
+//        y = a;
+//    }
+//    Operator()
+//    {
+//        _type = -1;
+//    }
+//    int type(){return _type;}
+//    Circle data(){return x;}
+//    Line data(int){return y;}
+//};
+
 #endif // CANVAS_H
 
 

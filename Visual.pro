@@ -25,16 +25,16 @@ CONFIG += c++11
 SOURCES += \
         main.cpp \
         mainwindow.cpp \
-    drawwidget.cpp \
-    canvas.cpp \
-    animation.cpp \
-    graph.cpp
+        drawwidget.cpp \
+        canvas.cpp \
+        animation.cpp \
+        graph.cpp
 
 HEADERS += \
         mainwindow.h \
-    drawwidget.h \
-    canvas.h \
-    graph.h
+        drawwidget.h \
+        canvas.h \
+        graph.h
 
 FORMS += \
         mainwindow.ui

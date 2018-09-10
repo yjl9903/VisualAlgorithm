@@ -33,10 +33,12 @@ drawWidget::~drawWidget()
 
 void drawWidget::clear()
 {
-    QPixmap *p = new QPixmap(size());
-    p->fill(QColor(0, 0, 0, 0));
-    pixCircle = p;
-    pixLine = p;
+    graph.clear();
+    ope.clear();
+//    QPixmap *p = new QPixmap(size());
+//    p->fill(QColor(0, 0, 0, 0));
+    pixCircle->fill(QColor(0, 0, 0, 0));
+    pixLine->fill(QColor(0, 0, 0, 0));
     update();
 }
 
@@ -48,9 +50,11 @@ void drawWidget::cleanTemp()
 
 void drawWidget::repaint()
 {
+//    qDebug() << graph.size() << graph.sizeLine();
     pixTemp->fill(QColor(0, 0, 0, 0));
     pixCircle->fill(QColor(0, 0, 0, 0));
     pixLine->fill(QColor(0, 0, 0, 0));
+    update();
     for (int i = 0; i < graph.size(); i++){
         Circle t = graph.circle(i);
         drawCircle(t, t.color());
@@ -65,7 +69,7 @@ void drawWidget::repaint()
 void drawWidget::loadGraph(int id)
 {
     if (isRun) return;
-    graph.clear();
+    clear();
     std::string str = "E:\\Graph\\" + std::to_string(id) + ".txt";
     freopen(str.c_str(), "r", stdin);
     int n, m;
@@ -79,6 +83,7 @@ void drawWidget::loadGraph(int id)
         graph.link(graph.circle(x).pos(), graph.circle(y).pos());
     }
     fclose(stdin);
+    ope.append(2);
     repaint();
 }
 
@@ -146,6 +151,7 @@ void drawWidget::mouseReleaseEvent(QMouseEvent *e)
         if (id == -1)
             return;
         Circle x = graph.circle(id);
+        ope.append(0);
         drawCircle(x, x.color());
     }
     if (mode == 1){
@@ -159,6 +165,21 @@ void drawWidget::mouseReleaseEvent(QMouseEvent *e)
             return;
         }
         Line x = graph.line(id);
+        ope.append(1);
         drawLine(id, x.begin(), x.end());
     }
+}
+
+void drawWidget::withdraw()
+{
+//    qDebug() << ope.size();
+    if (ope.size() == 0) return;
+    if (ope.back() == 2) {
+        clear();
+        return;
+    }
+    graph.del(ope.back());
+    ope.pop_back();
+//    qDebug() << ope.size();
+    repaint();
 }

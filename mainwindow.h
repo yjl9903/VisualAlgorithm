@@ -55,6 +55,10 @@ private slots:
 
     void on_showDraw_triggered();
 
+    void on_clearDraw_triggered();
+
+    void on_withdrawDraw_triggered();
+
 private:
 //    void initToolBar();
     void setStatusBar();

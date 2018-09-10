@@ -190,7 +190,19 @@ void MainWindow::on_showDraw_triggered()
 
         ui->mainToolBar->addAction(ui->createVertex);
         ui->mainToolBar->addAction(ui->createEdge);
+        ui->mainToolBar->addAction(ui->withdrawDraw);
+        ui->mainToolBar->addAction(ui->clearDraw);
 
         setStatusBar();
     }
+}
+
+void MainWindow::on_clearDraw_triggered()
+{
+    draw->clear();
+}
+
+void MainWindow::on_withdrawDraw_triggered()
+{
+    draw->withdraw();
 }
