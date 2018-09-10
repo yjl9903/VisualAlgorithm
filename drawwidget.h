@@ -53,7 +53,7 @@ public:
     bool setMode(int);
     bool setShowEdgeValue();
 
-    void setListWidget(QString, int);
+    void setListWidget(QString, QString);
 
     void repaint();
     void loadGraph(int);

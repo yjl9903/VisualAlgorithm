@@ -211,7 +211,7 @@ void drawWidget::drawLineAnimation(Line x, QColor color)
         update();
     }
 
-    drawArrowLine(beg, tag, *painter, color, 15.0);
+    drawArrowLine(beg, tag, *painter, color, 20.0);
 
     painter->end();
 

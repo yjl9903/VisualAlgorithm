@@ -16,7 +16,7 @@ QListWidgetItem* setItem(QString str)
     return item;
 }
 
-void drawWidget::setListWidget(QString str, int beg = 0)
+void drawWidget::setListWidget(QString str, QString queue = "")
 {
     list->clear();
     list->show();
@@ -29,7 +29,7 @@ void drawWidget::setListWidget(QString str, int beg = 0)
             list->addItem(item[i]);
     }
     if (str == "bfs"){
-        item[0] = setItem("queue q = {" + QString::number(beg) + "}");
+        item[0] = setItem("queue q = {" + queue + "}");
         item[1] = setItem("function bfs():");
         item[2] = setItem("    while q.empty() == false:");
         item[3] = setItem("        u = q.front(), q.pop()");
@@ -45,14 +45,14 @@ void drawWidget::algorithm(QString str, int begID)
 {
     isRun = 1;
     repaint();
-    setListWidget(str, begID);
+//    setListWidget(str, begID);
     if (begID >= graph.size()) {
         isRun = 0; list->hide();
         return;
     }
     memset(vis, 0, sizeof vis);
-    if (str == "dfs") dfs(begID);
-    if (str == "bfs") bfs(begID);
+    if (str == "dfs") setListWidget(str), dfs(begID);
+    if (str == "bfs") setListWidget(str, QString::number(begID)), bfs(begID);
     isRun = 0; list->hide();
 }
 
@@ -110,18 +110,38 @@ void drawWidget::dfs(int u)
     sleep(speed);
 }
 
+QString getQueue(QVector<int> v)
+{
+
+}
+
 void drawWidget::bfs(int beg)
 {
 //    drawCircle(graph.circle(beg), QColor(154, 255, 154));
     std::queue<int> q; q.push(beg); vis[beg] = 1;
+    QVector<int> v; v.append(beg);
+
+    item[1]->setTextColor(Qt::red);
+    sleep(speed);
+    item[1]->setTextColor(Qt::black);
+
     while (!q.empty()){
+        item[2]->setTextColor(Qt::red);
+        sleep(speed);
+
         int u = q.front(); q.pop();
         Circle tot = graph.circle(u);
+
+        item[2]->setTextColor(Qt::black);
+        item[3]->setTextColor(Qt::red);
         drawCircle(tot, QColor(154, 255, 154));
         sleep(speed);
 
         for (int i = 0; i < graph.size(); i++){
             if (i == u || !graph.edge(u, i)) continue;
+
+            item[3]->setTextColor(Qt::black);
+            item[4]->setTextColor(Qt::red);
 
             drawLineAnimation(u, i, QColor(154, 255, 154));
             Circle v = graph.circle(i);
@@ -131,23 +151,31 @@ void drawWidget::bfs(int beg)
 
             cleanTemp();
 
+            item[4]->setTextColor(Qt::black);
+            item[5]->setTextColor(Qt::red);
+            sleep(speed);
+
             if (!vis[i]){
+                item[5]->setTextColor(Qt::black);
+                item[6]->setTextColor(Qt::red);
                 sleep(speed);
+                vis[i] = 1;
                 q.push(i);
             }
             else {
+                item[5]->setTextColor(Qt::black);
                 sleep(speed);
                 drawLine(u, i, Qt::gray, defaultLineSize + 1);
-
             }
 
             drawCircle(v, v.color());
             drawCircle(tot, QColor(154, 255, 154));
-
-            sleep(speed / 5);
+            item[6]->setTextColor(Qt::black);
+            sleep(speed / 3);
         }
 
         sleep(speed);
+        item[3]->setTextColor(Qt::black);
         drawCircle(tot, tot.color());
         sleep(speed);
     }

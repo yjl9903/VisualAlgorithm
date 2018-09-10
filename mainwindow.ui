@@ -98,6 +98,8 @@
    </attribute>
    <addaction name="createVertex"/>
    <addaction name="createEdge"/>
+   <addaction name="withdrawDraw"/>
+   <addaction name="clearDraw"/>
   </widget>
   <action name="createVertex">
    <property name="text">
@@ -162,6 +164,21 @@
   <action name="actionbfs">
    <property name="text">
     <string>bfs</string>
+   </property>
+  </action>
+  <action name="showDraw">
+   <property name="text">
+    <string>画板</string>
+   </property>
+  </action>
+  <action name="clearDraw">
+   <property name="text">
+    <string>清空</string>
+   </property>
+  </action>
+  <action name="withdrawDraw">
+   <property name="text">
+    <string>撤销</string>
    </property>
   </action>
  </widget>

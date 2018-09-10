@@ -54,12 +54,15 @@ void MainWindow::setToolBar()
 //    ui->mainToolBar->addAction(ui->createVertex);
 //    ui->mainToolBar->addAction(ui->createEdge);
 
-    QLabel *space[3], *start = new QLabel(this);
-    for (int i = 0; i < 3; i++)
+    QLabel *space[4], *start = new QLabel(this);
+    for (int i = 0; i < 4; i++)
         space[i] = new QLabel(this), space[i]->setFixedWidth(20);
     space[0]->setFixedWidth(10);
 
     ui->mainToolBar->addWidget(space[0]);
+
+    ui->mainToolBar->addAction(ui->showDraw);
+    ui->mainToolBar->addWidget(space[3]);
 
     start->setText("起点:  ");
     ui->mainToolBar->addWidget(start);
@@ -87,16 +90,16 @@ void MainWindow::setToolBar()
 
 void MainWindow::on_createVertex_triggered()
 {
-    mode = 0;
     if (draw->setMode(0)){
+        mode = 0;
         setStatusBar();
     }
 }
 
 void MainWindow::on_createEdge_triggered()
 {
-    mode = 1;
     if (draw->setMode(1)){
+        mode = 1;
         setStatusBar();
     }
 }
@@ -109,10 +112,10 @@ void MainWindow::on_animation_triggered()
 
     draw->algorithm(running, inputBeg->text().toInt());
 
-    ui->mainToolBar->clear();
+//    ui->mainToolBar->clear();
 
-    ui->mainToolBar->addAction(ui->createVertex);
-    ui->mainToolBar->addAction(ui->createEdge);
+//    ui->mainToolBar->addAction(ui->createVertex);
+//    ui->mainToolBar->addAction(ui->createEdge);
 }
 
 void MainWindow::on_changeEdgeValue_triggered()
@@ -173,4 +176,21 @@ void MainWindow::on_actionbfs_triggered()
     setStatusBar();
     setToolBar();
 
+}
+
+
+void MainWindow::on_showDraw_triggered()
+{
+    if (draw->setMode(0)){
+        mode = 0;
+
+        draw->repaint();
+
+        ui->mainToolBar->clear();
+
+        ui->mainToolBar->addAction(ui->createVertex);
+        ui->mainToolBar->addAction(ui->createEdge);
+
+        setStatusBar();
+    }
 }

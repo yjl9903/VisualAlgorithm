@@ -53,6 +53,8 @@ private slots:
 
     void on_actionbfs_triggered();
 
+    void on_showDraw_triggered();
+
 private:
 //    void initToolBar();
     void setStatusBar();
