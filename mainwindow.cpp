@@ -1,6 +1,17 @@
 #include "mainwindow.h"
 #include "ui_mainwindow.h"
 
+void showMsg(QString str)
+{
+    QMessageBox *msg = new QMessageBox(
+        "Error", str,
+        QMessageBox::Critical,
+        QMessageBox::Ok | QMessageBox::Default,
+        QMessageBox::Escape, 0
+    );
+    msg->show();
+}
+
 MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),
     ui(new Ui::MainWindow)
@@ -10,6 +21,7 @@ MainWindow::MainWindow(QWidget *parent) :
     srand(time(NULL));
 
     draw = new drawWidget;
+    sort = new sortWidget;
     setCentralWidget(draw);
 
     statusLabel[0] = new QLabel(this);
@@ -24,12 +36,15 @@ MainWindow::MainWindow(QWidget *parent) :
 //    space[0]->setFixedWidth(10);
     setToolBar(0);
 
+    mode = 0;
+    algorithmMode = 0;
     isRunning = isShowEdgeValue = 0;
     isShowBoard = 1;
 }
 
 MainWindow::~MainWindow()
 {
+    delete draw;
     delete ui;
 }
 
@@ -38,18 +53,28 @@ void MainWindow::setStatusBar()
     delete statusLabel[0];
     delete statusLabel[1];
 
-    statusLabel[0] = new QLabel(this);
-    statusLabel[0]->setText("画板  ");
-    statusBar()->addWidget(statusLabel[0]);
+    if (algorithmMode == 0){
+        statusLabel[0] = new QLabel(this);
+        statusLabel[0]->setText("画板  ");
+        statusBar()->addWidget(statusLabel[0]);
 
-    statusLabel[1] = new QLabel(this);
-    if (mode == 0)
-        statusLabel[1]->setText("顶点  ");
-    else if (mode == 1)
-        statusLabel[1]->setText("边  ");
-    else if (mode == 2)
-        statusLabel[1]->setText(running + "  ");
-    statusBar()->addWidget(statusLabel[1]);
+        statusLabel[1] = new QLabel(this);
+        if (mode == 0)
+            statusLabel[1]->setText("顶点  ");
+        else if (mode == 1)
+            statusLabel[1]->setText("边  ");
+        else if (mode == 2)
+            statusLabel[1]->setText(running + "  ");
+        statusBar()->addWidget(statusLabel[1]);
+    }
+    if (algorithmMode == 1){
+        statusLabel[0] = new QLabel(this);
+        statusLabel[0]->setText("排序   ");
+        statusBar()->addWidget(statusLabel[0]);
+
+        statusLabel[1] = new QLabel(this);
+        statusLabel[1]->setText("  ");
+    }
 }
 
 void MainWindow::setToolBar(int type)
@@ -105,10 +130,89 @@ void MainWindow::setToolBar(int type)
         ui->animation->setText("Let's " + running + "!");
         ui->mainToolBar->addAction(ui->animation);
     }
+
+    if (type == 2){
+        QLabel *hint = new QLabel(this);
+
+        space[0]->setFixedWidth(10);
+        ui->mainToolBar->addWidget(space[0]);
+
+        hint->setText("高度:  ");
+        ui->mainToolBar->addWidget(hint);
+
+        inputRect = new QLineEdit(this);
+        inputRect->setMaximumWidth(100);
+        inputRect->setText("0");
+        ui->mainToolBar->addWidget(inputRect);
+
+        ui->mainToolBar->addWidget(space[1]);
+
+        ui->mainToolBar->addAction(ui->createRect);
+
+        ui->mainToolBar->addWidget(space[3]);
+        ui->mainToolBar->addAction(ui->withdrawDraw);
+        ui->mainToolBar->addWidget(space[4]);
+        ui->mainToolBar->addAction(ui->clearDraw);
+    }
+
+    if (type == 3){
+
+    }
+}
+
+void MainWindow::on_changeAlgorithmMode_triggered()
+{
+    if (isRunning) return;
+
+    algorithmMode ^= 1;
+    if (algorithmMode){
+//        delete draw;
+        takeCentralWidget();
+        setCentralWidget(sort);
+        ui->changeAlgorithmMode->setText("画板模式");
+
+        ui->menuLoad->setTitle(" 数组 ");
+
+        ui->menuAlgo->removeAction(ui->actiondfs);
+        ui->menuAlgo->removeAction(ui->actionbfs);
+        ui->menuSet->removeAction(ui->changeEdgeValue);
+
+        ui->menuAlgo->addAction(ui->actionBubble);
+
+        setStatusBar();
+        setToolBar(2);
+
+    }
+    else{
+//        delete sort;
+//        draw = new drawWidget;
+        takeCentralWidget();
+        setCentralWidget(draw);
+        ui->changeAlgorithmMode->setText("排序模式");
+        isRunning = isShowEdgeValue = 0;
+        isShowBoard = 1;
+
+        ui->menuLoad->setTitle("  图  ");
+
+        ui->menuAlgo->addAction(ui->actiondfs);
+        ui->menuAlgo->addAction(ui->actionbfs);
+
+        ui->menuSet->removeAction(ui->changeBoard);
+        ui->menuSet->removeAction(ui->changeAlgorithmMode);
+        ui->menuSet->addAction(ui->changeEdgeValue);
+        ui->menuSet->addAction(ui->changeBoard);
+        ui->menuSet->addAction(ui->changeAlgorithmMode);
+
+        ui->menuAlgo->removeAction(ui->actionBubble);
+
+        setStatusBar();
+        setToolBar(0);
+    }
 }
 
 void MainWindow::on_createVertex_triggered()
 {
+    if (algorithmMode) return;
     if (draw->setMode(0)){
         mode = 0;
         setStatusBar();
@@ -117,6 +221,7 @@ void MainWindow::on_createVertex_triggered()
 
 void MainWindow::on_createEdge_triggered()
 {
+    if (algorithmMode) return;
     if (draw->setMode(1)){
         mode = 1;
         setStatusBar();
@@ -126,24 +231,30 @@ void MainWindow::on_createEdge_triggered()
 void MainWindow::on_animation_triggered()
 {
 //    mode = 2;
-    if (isRunning) return;
-    isRunning = 1;
-    draw->setMode(2);
-//    setStatusBar();
+    if (algorithmMode == 0){
+        if (isRunning) return;
+        isRunning = 1;
+        draw->setMode(2);
+    //    setStatusBar();
 
-    bool ok;
-    inputBeg->text().toInt(&ok);
-    if (ok) draw->algorithm(running, inputBeg->text().toInt());
+        bool ok;
+        inputBeg->text().toInt(&ok);
+        if (ok) draw->algorithm(running, inputBeg->text().toInt());
 
-    isRunning = 0;
-//    ui->mainToolBar->clear();
+        isRunning = 0;
+    //    ui->mainToolBar->clear();
+    //    ui->mainToolBar->addAction(ui->createVertex);
+    //    ui->mainToolBar->addAction(ui->createEdge);
+    }
 
-//    ui->mainToolBar->addAction(ui->createVertex);
-//    ui->mainToolBar->addAction(ui->createEdge);
+    if (algorithmMode == 1){
+
+    }
 }
 
 void MainWindow::on_changeEdgeValue_triggered()
 {
+    if (algorithmMode) return;
     if (draw->setShowEdgeValue()){
         isShowEdgeValue ^= 1;
         if (isShowEdgeValue){
@@ -170,41 +281,49 @@ void MainWindow::on_changeBoard_triggered()
 
 void MainWindow::on_load1_triggered()
 {
-    draw->loadGraph(1);
+    if (algorithmMode == 0) draw->loadGraph(1);
+    else if (algorithmMode == 1) sort->loadArray(1);
 }
 
 void MainWindow::on_load2_triggered()
 {
-    draw->loadGraph(2);
+    if (algorithmMode == 0) draw->loadGraph(2);
+    else if (algorithmMode == 1) sort->loadArray(2);
 }
 
 void MainWindow::on_load3_triggered()
 {
-    draw->loadGraph(3);
+    if (algorithmMode == 0) draw->loadGraph(3);
+    else if (algorithmMode == 1) sort->loadArray(3);
 }
 
 void MainWindow::on_load4_triggered()
 {
-    draw->loadGraph(4);
+    if (algorithmMode == 0) draw->loadGraph(4);
+    else if (algorithmMode == 1) sort->loadArray(4);
 }
 
 void MainWindow::on_load5_triggered()
 {
-    draw->loadGraph(5);
+    if (algorithmMode == 0) draw->loadGraph(5);
+    else if (algorithmMode == 1) sort->loadArray(5);
 }
 
 void MainWindow::on_load6_triggered()
 {
-    draw->loadGraph(6);
+    if (algorithmMode == 0) draw->loadGraph(6);
+    else if (algorithmMode == 1) sort->loadArray(6);
 }
 
 void MainWindow::on_load7_triggered()
 {
-    draw->loadGraph(7);
+    if (algorithmMode == 0) draw->loadGraph(7);
+    else if (algorithmMode == 1) sort->loadArray(7);
 }
 
 void MainWindow::on_actiondfs_triggered()
 {
+    if (algorithmMode) return;
     if (isRunning) return;
     running = "dfs";
     mode = 2;
@@ -216,6 +335,7 @@ void MainWindow::on_actiondfs_triggered()
 
 void MainWindow::on_actionbfs_triggered()
 {
+    if (algorithmMode) return;
     if (isRunning) return;
     running = "bfs";
     mode = 2;
@@ -224,9 +344,9 @@ void MainWindow::on_actionbfs_triggered()
     setToolBar(1);
 }
 
-
 void MainWindow::on_showDraw_triggered()
 {
+    if (algorithmMode) return;
     if (draw->setMode(0)){
         mode = 0;
 
@@ -246,11 +366,34 @@ void MainWindow::on_showDraw_triggered()
 
 void MainWindow::on_clearDraw_triggered()
 {
-    draw->clear();
+    if (algorithmMode == 0)
+        draw->clear();
+    else if (algorithmMode == 1)
+        sort->clear();
 }
 
 void MainWindow::on_withdrawDraw_triggered()
 {
-    draw->withdraw();
+    if (algorithmMode == 0)
+        draw->withdraw();
+    else if (algorithmMode == 1)
+        sort->clear();
+}
+
+void MainWindow::on_createRect_triggered()
+{
+    QString str = inputRect->text();
+    bool ok;
+    int x = str.toInt(&ok);
+    if (!ok || x > 10) {
+        showMsg("您输入的高度有误！");
+        return;
+    }
+    sort->addRect(x);
+}
+
+void MainWindow::on_actionBubble_triggered()
+{
+    sort->swapRect(0, 3);
 }
 

@@ -31,6 +31,10 @@
   <property name="windowTitle">
    <string>VisuALgorithm</string>
   </property>
+  <property name="windowIcon">
+   <iconset>
+    <normaloff>:/icon/icon/Visualgorithm.ico</normaloff>:/icon/icon/Visualgorithm.ico</iconset>
+  </property>
   <widget class="QWidget" name="centralWidget"/>
   <widget class="QMenuBar" name="menuBar">
    <property name="geometry">
@@ -41,14 +45,15 @@
      <height>19</height>
     </rect>
    </property>
-   <widget class="QMenu" name="menu">
+   <widget class="QMenu" name="menuSet">
     <property name="title">
      <string> 设置 </string>
     </property>
     <addaction name="changeEdgeValue"/>
     <addaction name="changeBoard"/>
+    <addaction name="changeAlgorithmMode"/>
    </widget>
-   <widget class="QMenu" name="menu_2">
+   <widget class="QMenu" name="menuLoad">
     <property name="title">
      <string>  图  </string>
     </property>
@@ -66,16 +71,16 @@
     </property>
     <addaction name="aboutWriter"/>
    </widget>
-   <widget class="QMenu" name="menu_4">
+   <widget class="QMenu" name="menuAlgo">
     <property name="title">
      <string> 算法 </string>
     </property>
     <addaction name="actiondfs"/>
     <addaction name="actionbfs"/>
    </widget>
-   <addaction name="menu_2"/>
-   <addaction name="menu_4"/>
-   <addaction name="menu"/>
+   <addaction name="menuLoad"/>
+   <addaction name="menuAlgo"/>
+   <addaction name="menuSet"/>
    <addaction name="menu_3"/>
   </widget>
   <widget class="QStatusBar" name="statusBar"/>
@@ -168,12 +173,12 @@
   </action>
   <action name="actiondfs">
    <property name="text">
-    <string>dfs</string>
+    <string>深度优先搜索</string>
    </property>
   </action>
   <action name="actionbfs">
    <property name="text">
-    <string>bfs</string>
+    <string>宽度优先搜索</string>
    </property>
   </action>
   <action name="showDraw">
@@ -211,6 +216,21 @@
   <action name="aboutWriter">
    <property name="text">
     <string>关于作者</string>
+   </property>
+  </action>
+  <action name="changeAlgorithmMode">
+   <property name="text">
+    <string>排序模式</string>
+   </property>
+  </action>
+  <action name="actionBubble">
+   <property name="text">
+    <string>冒泡排序</string>
+   </property>
+  </action>
+  <action name="createRect">
+   <property name="text">
+    <string>添加</string>
    </property>
   </action>
  </widget>

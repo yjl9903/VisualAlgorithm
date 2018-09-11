@@ -28,13 +28,15 @@ SOURCES += \
         drawwidget.cpp \
         canvas.cpp \
         animation.cpp \
-        graph.cpp
+        graph.cpp \
+    sortwidget.cpp
 
 HEADERS += \
         mainwindow.h \
         drawwidget.h \
         canvas.h \
-        graph.h
+        graph.h \
+    sortwidget.h
 
 FORMS += \
         mainwindow.ui
@@ -46,3 +48,5 @@ else: unix:!android: target.path = /opt/$${TARGET}/bin
 
 RESOURCES += \
     src.qrc
+
+RC_ICONS = Visualgorithm.ico

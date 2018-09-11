@@ -12,15 +12,17 @@ void drawWidget::drawText(QPoint pos, QString str, QPainter& painter)
 {
     painter.setFont(getFont());
     painter.setPen(QPen(Qt::black));
-    if (str.size() == 1){
-        pos.setX(pos.x() - 8);
-        pos.setY(pos.y() + 10);
-    }
-    else {
-        pos.setX(pos.x() - 16);
-        pos.setY(pos.y() + 10);
-    }
-    painter.drawText(pos, str);
+    // + QRect!
+    QRect x(pos.x() - 24, pos.y() - 24, 48, 48);
+//    if (str.size() == 1){
+//        pos.setX(pos.x() - 8);
+//        pos.setY(pos.y() + 10);
+//    }
+//    else {
+//        pos.setX(pos.x() - 16);
+//        pos.setY(pos.y() + 10);
+//    }
+    painter.drawText(x, Qt::AlignCenter, str);
 }
 
 void drawWidget::drawLineText(QPoint beg, QPoint end, QString str, QPainter& painter)

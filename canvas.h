@@ -3,6 +3,8 @@
 
 #include <QColor>
 #include <QPoint>
+#include <QRect>
+#include <QSize>
 #include <QVector>
 #include <QPair>
 #include <cmath>
@@ -11,6 +13,8 @@
 #include <QDebug>
 
 const int defaultSize = 35;
+const int defaultUnitHeight = 50;
+const int defaultUnitWidth = 80;
 
 class ColorList{
 private:
@@ -80,6 +84,74 @@ public:
     QPoint begin(){return _begin;}
     QPoint end(){return _end;}
     QPoint v(){return _end - _begin;}
+};
+
+class Rect : public Canvas
+{
+private:
+    QRect _rect;
+
+public:
+    Rect(){ _rect = QRect(0, 0, 0, 0); }
+    Rect(int x, int y, int w, int h){ _rect = QRect(x, y, w, h); }
+    int setID(int i){ _id = i; }
+    QSize size(){return _rect.size();}
+    QRect rect(){return _rect;}
+    int left(){return _rect.left();}
+    int right(){return _rect.right();}
+    void setLeft(int i){ _rect.setLeft(i); }
+    void setRight(int i){ _rect.setRight(i); }
+    void moveTo(int x){ _rect.setLeft(x); _rect.setRight(x + defaultUnitWidth); }
+};
+
+class Array
+{
+private:
+    QVector<Rect> v;
+    QVector<int> _val;
+    ColorList mld;
+
+public:
+    Array()
+    {
+        v.clear();
+        mld.init();
+    }
+    int size(){return v.size();}
+    Rect &rect(int i){ return v[i]; }
+    int val(int i){ return _val[i]; }
+    int insert(QPoint pos, int x)
+    {
+        if (v.size() == 14) return -1;
+
+        int h = x * defaultUnitHeight;
+        Rect t(pos.x(), pos.y() - h, defaultUnitWidth, h);
+        t.setColor(mld.randomColor());
+
+        v.append(t);
+        _val.append(x);
+//        qDebug() << (int)v.size() - 1;
+        return (int)v.size() - 1;
+    }
+
+    void swap(int a, int b)
+    {
+        Rect t = v[a];
+        v[a] = v[b];
+        v[b] = t;
+        int t2 = v[a].id();
+        v[a].setID(v[b].id());
+        v[b].setID(t2);
+        t2 = _val[a];
+        _val[a] = _val[b];
+        _val[b] = t2;
+    }
+
+    void clear()
+    {
+        v.clear();
+        _val.clear();
+    }
 };
 
 class Container

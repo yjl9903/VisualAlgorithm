@@ -2,8 +2,10 @@
 #define MAINWINDOW_H
 
 #include "drawwidget.h"
+#include "sortwidget.h"
 #include <QMainWindow>
 #include <QToolBar>
+#include <QMessageBox>
 #include <QSlider>
 #include <QPushButton>
 #include <QAction>
@@ -13,6 +15,8 @@
 #include <QLineEdit>
 #include <ctime>
 #include <cstdlib>
+
+void showMsg(QString);
 
 namespace Ui {
 class MainWindow;
@@ -61,6 +65,12 @@ private slots:
 
     void on_changeBoard_triggered();
 
+    void on_changeAlgorithmMode_triggered();
+
+    void on_actionBubble_triggered();
+
+    void on_createRect_triggered();
+
 private:
 //    void initToolBar();
     void setStatusBar();
@@ -68,12 +78,13 @@ private:
 
     QLabel *statusLabel[2], *space[5];
 
-    QLineEdit *inputBeg;
+    QLineEdit *inputBeg, *inputRect;
 
     Ui::MainWindow *ui;
     drawWidget *draw;
+    sortWidget *sort;
 
-    int mode = 0;
+    int mode = 0, algorithmMode;
     QString running;
     bool isRunning, isShowEdgeValue, isShowBoard;
 };
