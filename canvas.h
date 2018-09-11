@@ -147,6 +147,12 @@ public:
         _val[b] = t2;
     }
 
+    void del()
+    {
+        v.pop_back();
+        _val.pop_back();
+    }
+
     void clear()
     {
         v.clear();

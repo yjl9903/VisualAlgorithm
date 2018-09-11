@@ -71,6 +71,12 @@ private slots:
 
     void on_createRect_triggered();
 
+    void on_actionQuick_triggered();
+
+    void on_showSort_triggered();
+
+    void on_randomRect_triggered();
+
 private:
 //    void initToolBar();
     void setStatusBar();

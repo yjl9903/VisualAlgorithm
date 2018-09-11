@@ -99,8 +99,9 @@ bool drawWidget::setShowEdgeValue()
 bool drawWidget::setShowBoard()
 {
     isShowBoard ^= 1;
-    if (isShowBoard) list->show();
-    else list->hide();
+//    if (isShowBoard) list->show();
+//    else list->hide();
+    if (!isShowBoard) list->hide();
     return true;
 }
 

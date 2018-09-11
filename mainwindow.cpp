@@ -63,8 +63,10 @@ void MainWindow::setStatusBar()
             statusLabel[1]->setText("顶点  ");
         else if (mode == 1)
             statusLabel[1]->setText("边  ");
-        else if (mode == 2)
-            statusLabel[1]->setText(running + "  ");
+        else if (mode == 2){
+            if (running == "dfs") statusLabel[1]->setText("深度优先搜索  ");
+            else if (running == "bfs") statusLabel[1]->setText("宽度优先搜索  ");
+        }
         statusBar()->addWidget(statusLabel[1]);
     }
     if (algorithmMode == 1){
@@ -74,6 +76,11 @@ void MainWindow::setStatusBar()
 
         statusLabel[1] = new QLabel(this);
         statusLabel[1]->setText("  ");
+
+        if (running == "bubble") statusLabel[1]->setText("冒泡排序  ");
+        else if (running == "quick") statusLabel[1]->setText("快速排序  ");
+
+        statusBar()->addWidget(statusLabel[1]);
     }
 }
 
@@ -134,7 +141,10 @@ void MainWindow::setToolBar(int type)
     if (type == 2){
         QLabel *hint = new QLabel(this);
 
-        space[0]->setFixedWidth(10);
+//        space[0]->setFixedWidth(10);
+//        ui->mainToolBar->addWidget(space[0]);
+
+        ui->mainToolBar->addAction(ui->randomRect);
         ui->mainToolBar->addWidget(space[0]);
 
         hint->setText("高度:  ");
@@ -142,7 +152,7 @@ void MainWindow::setToolBar(int type)
 
         inputRect = new QLineEdit(this);
         inputRect->setMaximumWidth(100);
-        inputRect->setText("0");
+        inputRect->setText("1");
         ui->mainToolBar->addWidget(inputRect);
 
         ui->mainToolBar->addWidget(space[1]);
@@ -156,7 +166,25 @@ void MainWindow::setToolBar(int type)
     }
 
     if (type == 3){
+//        space[0]->setFixedWidth(10);
 
+        ui->mainToolBar->addAction(ui->showSort);
+
+        ui->mainToolBar->addWidget(space[1]);
+
+        QSlider *slider = new QSlider(Qt::Horizontal);
+        slider->setMinimum(0);
+        slider->setMaximum(100);
+        slider->setValue(50);
+        slider->setMaximumWidth(200);
+        ui->mainToolBar->addWidget(slider);
+
+        connect(slider, SIGNAL(valueChanged(int)), sort, SLOT(setSpeed(int)));
+
+        ui->mainToolBar->addWidget(space[2]);
+
+        ui->animation->setText("Let's " + running + " sort!");
+        ui->mainToolBar->addAction(ui->animation);
     }
 }
 
@@ -165,11 +193,15 @@ void MainWindow::on_changeAlgorithmMode_triggered()
     if (isRunning) return;
 
     algorithmMode ^= 1;
+
     if (algorithmMode){
 //        delete draw;
         takeCentralWidget();
         setCentralWidget(sort);
         ui->changeAlgorithmMode->setText("画板模式");
+
+        isRunning = 0;
+        isShowBoard = 1;
 
         ui->menuLoad->setTitle(" 数组 ");
 
@@ -178,10 +210,10 @@ void MainWindow::on_changeAlgorithmMode_triggered()
         ui->menuSet->removeAction(ui->changeEdgeValue);
 
         ui->menuAlgo->addAction(ui->actionBubble);
+        ui->menuAlgo->addAction(ui->actionQuick);
 
         setStatusBar();
         setToolBar(2);
-
     }
     else{
 //        delete sort;
@@ -204,6 +236,7 @@ void MainWindow::on_changeAlgorithmMode_triggered()
         ui->menuSet->addAction(ui->changeAlgorithmMode);
 
         ui->menuAlgo->removeAction(ui->actionBubble);
+        ui->menuAlgo->removeAction(ui->actionQuick);
 
         setStatusBar();
         setToolBar(0);
@@ -231,8 +264,9 @@ void MainWindow::on_createEdge_triggered()
 void MainWindow::on_animation_triggered()
 {
 //    mode = 2;
+    if (isRunning) return;
+
     if (algorithmMode == 0){
-        if (isRunning) return;
         isRunning = 1;
         draw->setMode(2);
     //    setStatusBar();
@@ -248,7 +282,11 @@ void MainWindow::on_animation_triggered()
     }
 
     if (algorithmMode == 1){
+        isRunning = 1;
 
+        sort->algorithm(running);
+
+        isRunning = 0;
     }
 }
 
@@ -268,7 +306,7 @@ void MainWindow::on_changeEdgeValue_triggered()
 
 void MainWindow::on_changeBoard_triggered()
 {
-    if (!isRunning) return;
+//    if (!isRunning) return;
     isShowBoard ^= 1;
     if (isShowBoard){
         ui->changeBoard->setText("关闭伪代码");
@@ -277,6 +315,7 @@ void MainWindow::on_changeBoard_triggered()
         ui->changeBoard->setText("开启伪代码");
     }
     draw->setShowBoard();
+    sort->setShowBoard();
 }
 
 void MainWindow::on_load1_triggered()
@@ -344,6 +383,28 @@ void MainWindow::on_actionbfs_triggered()
     setToolBar(1);
 }
 
+
+void MainWindow::on_actionBubble_triggered()
+{
+//    sort->swapRect(0, 3);
+    if (!algorithmMode) return;
+    if (isRunning) return;
+    running = "bubble";
+    sort->setSpeed(50);
+    setStatusBar();
+    setToolBar(3);
+}
+
+void MainWindow::on_actionQuick_triggered()
+{
+    if (!algorithmMode) return;
+    if (isRunning) return;
+    running = "quick";
+    sort->setSpeed(50);
+    setStatusBar();
+    setToolBar(3);
+}
+
 void MainWindow::on_showDraw_triggered()
 {
     if (algorithmMode) return;
@@ -353,6 +414,7 @@ void MainWindow::on_showDraw_triggered()
         draw->repaint();
 
         setToolBar(0);
+
 //        ui->mainToolBar->clear();
 
 //        ui->mainToolBar->addAction(ui->createVertex);
@@ -362,6 +424,17 @@ void MainWindow::on_showDraw_triggered()
 
         setStatusBar();
     }
+}
+
+void MainWindow::on_showSort_triggered()
+{
+    if (!algorithmMode) return;
+    if (isRunning) return;
+
+    sort->repaint();
+
+    setToolBar(2);
+    setStatusBar();
 }
 
 void MainWindow::on_clearDraw_triggered()
@@ -377,23 +450,24 @@ void MainWindow::on_withdrawDraw_triggered()
     if (algorithmMode == 0)
         draw->withdraw();
     else if (algorithmMode == 1)
-        sort->clear();
+        sort->withdraw();
 }
 
 void MainWindow::on_createRect_triggered()
 {
     QString str = inputRect->text();
+    inputRect->setText("1");
     bool ok;
     int x = str.toInt(&ok);
-    if (!ok || x > 10) {
+    if (!ok || x > 12 || x < -3) {
         showMsg("您输入的高度有误！");
         return;
     }
     sort->addRect(x);
 }
 
-void MainWindow::on_actionBubble_triggered()
+void MainWindow::on_randomRect_triggered()
 {
-    sort->swapRect(0, 3);
+    int x = rand() % 16 - 4;
+    sort->addRect(x);
 }
-

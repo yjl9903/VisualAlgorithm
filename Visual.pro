@@ -29,7 +29,8 @@ SOURCES += \
         canvas.cpp \
         animation.cpp \
         graph.cpp \
-    sortwidget.cpp
+    sortwidget.cpp \
+    sort.cpp
 
 HEADERS += \
         mainwindow.h \

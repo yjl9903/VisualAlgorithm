@@ -15,7 +15,13 @@ sortWidget::sortWidget(QWidget *parent) : QWidget(parent)
     pix = new QPixmap(size());
     pix->fill(QColor(0, 0, 0, 0));
 
+    list = new QListWidget(this);
+    list->setGeometry(950, 560, 500, 400);
+    list->setFocusPolicy(Qt::NoFocus);
+    list->hide();
+
     isRun = 0;
+    isShowBoard = 1;
     speed = 50;
     left = defaultLeft;
     buttom = defaultButtom;
@@ -93,11 +99,11 @@ void sortWidget::swapRect(int a, int b)
 
 //    for (int i = x1, j = x2; i <= x2, j >= x1; i++, j--){
 //    speed = 50;
-    for (int i = 0; i <= 200; i++){
+    for (int i = 0; i <= 60; i++){
         sleep(speed / 5);
-        arr->rect(a).moveTo(x1 + len * i / 200);
-        arr->rect(b).moveTo(x2 - len * i / 200);
-        qDebug() << arr->rect(a).left() << arr->rect(b).left();
+        arr->rect(a).moveTo(x1 + len * i / 60);
+        arr->rect(b).moveTo(x2 - len * i / 60);
+//        qDebug() << arr->rect(a).left() << arr->rect(b).left();
         pixTemp1->fill(QColor(0, 0, 0, 0));
         pixTemp2->fill(QColor(0, 0, 0, 0));
         update();
@@ -120,6 +126,15 @@ void sortWidget::repaint(int a, int b)
         if (i == a || i == b) continue;
         drawRect(i, arr->rect(i).color());
     }
+    update();
+}
+
+void sortWidget::withdraw()
+{
+    if (arr->size() == 0) return;
+    arr->del();
+    left -= defaultUnitWidth + 10;
+    repaint();
 }
 
 void sortWidget::loadArray(int id)
@@ -137,12 +152,6 @@ void sortWidget::loadArray(int id)
     fclose(stdin);
 
     repaint();
-//    for (int i = 1; i < 10; i++){
-//        int id = arr->insert(QPoint(left, buttom), i);
-//        qDebug() << id;
-//        left += defaultUnitWidth + 10;
-//        drawRect(id, arr->rect(id).color());
-//    }
 }
 
 void sortWidget::addRect(int x)
@@ -150,11 +159,15 @@ void sortWidget::addRect(int x)
     int id = arr->insert(QPoint(left, buttom), x);
     if (id == -1) return;
     left += defaultUnitWidth + 10;
-//    drawRect(id, arr->rect(id).color());
-    repaint();
+    drawRect(id, arr->rect(id).color());
+//    repaint();
 }
 
-void sortWidget::setSpeed(int x)
+bool sortWidget::setShowBoard()
 {
-    speed = (100 - x);
+    isShowBoard ^= 1;
+//    if (isShowBoard) list->show();
+//    else list->hide();
+    if (!isShowBoard) list->hide();
+    return true;
 }

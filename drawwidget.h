@@ -39,6 +39,8 @@ inline void sleep(int time)
 
 QFont getFont();
 
+QListWidgetItem* setItem(QString);
+
 class drawWidget : public QWidget
 {
     Q_OBJECT

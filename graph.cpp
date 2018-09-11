@@ -29,7 +29,7 @@ void drawWidget::setListWidget(QString str, QString queue = "")
         for (int i = 0; i < 4; i++)
             list->addItem(item[i]);
     }
-    if (str == "bfs"){
+    else if (str == "bfs"){
         list->setGeometry(850, 560, 600, 400);
         item[0] = setItem("queue q = { " + queue + " }");
         item[1] = setItem("function bfs():");
@@ -56,7 +56,8 @@ void drawWidget::algorithm(QString str, int begID)
     memset(vis, 0, sizeof vis);
     if (str == "dfs") setListWidget(str), dfs(begID);
     if (str == "bfs") setListWidget(str, QString::number(begID)), bfs(begID);
-    isRun = 0; list->hide();
+    isRun = 0;
+    list->hide();
 }
 
 void drawWidget::dfs(int u)

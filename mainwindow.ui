@@ -132,6 +132,10 @@
    </property>
   </action>
   <action name="changeEdgeValue">
+   <property name="icon">
+    <iconset resource="src.qrc">
+     <normaloff>:/icon/icon/value.png</normaloff>:/icon/icon/value.png</iconset>
+   </property>
    <property name="text">
     <string>显示边权</string>
    </property>
@@ -172,11 +176,19 @@
    </property>
   </action>
   <action name="actiondfs">
+   <property name="icon">
+    <iconset resource="src.qrc">
+     <normaloff>:/icon/icon/DFS.png</normaloff>:/icon/icon/DFS.png</iconset>
+   </property>
    <property name="text">
     <string>深度优先搜索</string>
    </property>
   </action>
   <action name="actionbfs">
+   <property name="icon">
+    <iconset resource="src.qrc">
+     <normaloff>:/icon/icon/BFS.png</normaloff>:/icon/icon/BFS.png</iconset>
+   </property>
    <property name="text">
     <string>宽度优先搜索</string>
    </property>
@@ -209,6 +221,10 @@
    </property>
   </action>
   <action name="changeBoard">
+   <property name="icon">
+    <iconset resource="src.qrc">
+     <normaloff>:/icon/icon/code.png</normaloff>:/icon/icon/code.png</iconset>
+   </property>
    <property name="text">
     <string>关闭伪代码</string>
    </property>
@@ -231,6 +247,29 @@
   <action name="createRect">
    <property name="text">
     <string>添加</string>
+   </property>
+  </action>
+  <action name="actionQuick">
+   <property name="text">
+    <string>快速排序</string>
+   </property>
+  </action>
+  <action name="showSort">
+   <property name="icon">
+    <iconset resource="src.qrc">
+     <normaloff>:/icon/icon/sort.png</normaloff>:/icon/icon/sort.png</iconset>
+   </property>
+   <property name="text">
+    <string>排序</string>
+   </property>
+  </action>
+  <action name="randomRect">
+   <property name="icon">
+    <iconset resource="src.qrc">
+     <normaloff>:/icon/icon/random.png</normaloff>:/icon/icon/random.png</iconset>
+   </property>
+   <property name="text">
+    <string>随机</string>
    </property>
   </action>
  </widget>
