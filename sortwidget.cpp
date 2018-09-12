@@ -140,7 +140,7 @@ void sortWidget::withdraw()
 void sortWidget::loadArray(int id)
 {
     clear();
-    std::string str = "E:\\Array\\" + std::to_string(id) + ".txt";
+    std::string str = basePath + "Array\\" + std::to_string(id) + ".txt";
     freopen(str.c_str(), "r", stdin);
     int n;
     scanf("%d", &n);

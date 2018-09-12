@@ -10,11 +10,14 @@
 #include <cmath>
 #include <cstdlib>
 #include <cstdio>
+#include <string>
 #include <QDebug>
 
 const int defaultSize = 35;
 const int defaultUnitHeight = 50;
 const int defaultUnitWidth = 80;
+
+const std::string basePath = "\\";
 
 class ColorList{
 private:

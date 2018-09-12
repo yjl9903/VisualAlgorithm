@@ -5,11 +5,15 @@
         <file>icon/show.png</file>
         <file>icon/vertex.png</file>
         <file>icon/withdraw.png</file>
-        <file>icon/sort.png</file>
         <file>icon/random.png</file>
         <file>icon/code.png</file>
         <file>icon/BFS.png</file>
         <file>icon/DFS.png</file>
         <file>icon/value.png</file>
+        <file>icon/bubble.png</file>
+        <file>icon/select.png</file>
+        <file>icon/add.png</file>
+        <file>icon/quick.png</file>
+        <file>icon/sort.png</file>
     </qresource>
 </RCC>

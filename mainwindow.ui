@@ -235,21 +235,37 @@
    </property>
   </action>
   <action name="changeAlgorithmMode">
+   <property name="icon">
+    <iconset resource="src.qrc">
+     <normaloff>:/icon/icon/sort.png</normaloff>:/icon/icon/sort.png</iconset>
+   </property>
    <property name="text">
     <string>排序模式</string>
    </property>
   </action>
   <action name="actionBubble">
+   <property name="icon">
+    <iconset resource="src.qrc">
+     <normaloff>:/icon/icon/bubble.png</normaloff>:/icon/icon/bubble.png</iconset>
+   </property>
    <property name="text">
     <string>冒泡排序</string>
    </property>
   </action>
   <action name="createRect">
+   <property name="icon">
+    <iconset resource="src.qrc">
+     <normaloff>:/icon/icon/add.png</normaloff>:/icon/icon/add.png</iconset>
+   </property>
    <property name="text">
     <string>添加</string>
    </property>
   </action>
   <action name="actionQuick">
+   <property name="icon">
+    <iconset resource="src.qrc">
+     <normaloff>:/icon/icon/quick.png</normaloff>:/icon/icon/quick.png</iconset>
+   </property>
    <property name="text">
     <string>快速排序</string>
    </property>
@@ -273,6 +289,10 @@
    </property>
   </action>
   <action name="actionSelect">
+   <property name="icon">
+    <iconset resource="src.qrc">
+     <normaloff>:/icon/icon/select.png</normaloff>:/icon/icon/select.png</iconset>
+   </property>
    <property name="text">
     <string>选择排序</string>
    </property>

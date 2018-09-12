@@ -4,6 +4,7 @@
 #include "drawwidget.h"
 #include "sortwidget.h"
 #include <QMainWindow>
+#include <QIcon>
 #include <QToolBar>
 #include <QMessageBox>
 #include <QSlider>
@@ -78,6 +79,8 @@ private slots:
     void on_randomRect_triggered();
 
     void on_actionSelect_triggered();
+
+    void on_aboutWriter_triggered();
 
 private:
 //    void initToolBar();

@@ -200,6 +200,7 @@ void MainWindow::on_changeAlgorithmMode_triggered()
         takeCentralWidget();
         setCentralWidget(sort);
         ui->changeAlgorithmMode->setText("画板模式");
+        ui->changeAlgorithmMode->setIcon(QIcon(QPixmap(":/icon/icon/show.png")));
 
         isRunning = 0;
         isShowBoard = 1;
@@ -223,6 +224,8 @@ void MainWindow::on_changeAlgorithmMode_triggered()
         takeCentralWidget();
         setCentralWidget(draw);
         ui->changeAlgorithmMode->setText("排序模式");
+        ui->changeAlgorithmMode->setIcon(QIcon(QPixmap(":/icon/icon/sort.png")));
+
         isRunning = isShowEdgeValue = 0;
         isShowBoard = 1;
 
@@ -485,4 +488,10 @@ void MainWindow::on_randomRect_triggered()
     sort->addRect(x);
 }
 
-
+void MainWindow::on_aboutWriter_triggered()
+{
+    QString str1 = "\n  数据结构与算法可视化工坊\n\n";
+    QString str2 = "         VisuALgorithm\n\n";
+    QString str3 = "created by XLor and Einsturing\n";
+    QMessageBox::about(this, "关于作品", str1 + str2 + str3);
+}

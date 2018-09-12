@@ -71,7 +71,7 @@ void drawWidget::loadGraph(int id)
 {
     if (isRun) return;
     clear();
-    std::string str = "E:\\Graph\\" + std::to_string(id) + ".txt";
+    std::string str = basePath + "Graph\\" + std::to_string(id) + ".txt";
     freopen(str.c_str(), "r", stdin);
     int n, m;
     scanf("%d%d", &n, &m);

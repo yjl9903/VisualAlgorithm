@@ -5,7 +5,8 @@ void ColorList::init()
     if (!v.empty()) return;
 //        qDebug() << "haha";
 
-    freopen("E:\\color.txt", "r", stdin);
+    std::string path = basePath + "color.txt";
+    freopen(path.c_str(), "r", stdin);
     int r, g, b;
     while (~scanf("%d%d%d", &r, &g, &b)){
 //            qDebug("%d %d %d", r, g, b);
