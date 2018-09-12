@@ -169,5 +169,6 @@ bool sortWidget::setShowBoard()
 //    if (isShowBoard) list->show();
 //    else list->hide();
     if (!isShowBoard) list->hide();
+    else if (isRun) list->show();
     return true;
 }
