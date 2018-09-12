@@ -272,6 +272,11 @@
     <string>随机</string>
    </property>
   </action>
+  <action name="actionSelect">
+   <property name="text">
+    <string>选择排序</string>
+   </property>
+  </action>
  </widget>
  <layoutdefault spacing="6" margin="11"/>
  <resources>

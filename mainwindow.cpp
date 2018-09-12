@@ -78,6 +78,7 @@ void MainWindow::setStatusBar()
         statusLabel[1]->setText("  ");
 
         if (running == "bubble") statusLabel[1]->setText("冒泡排序  ");
+        else if (running == "select") statusLabel[1]->setText("选择排序  ");
         else if (running == "quick") statusLabel[1]->setText("快速排序  ");
 
         statusBar()->addWidget(statusLabel[1]);
@@ -210,6 +211,7 @@ void MainWindow::on_changeAlgorithmMode_triggered()
         ui->menuSet->removeAction(ui->changeEdgeValue);
 
         ui->menuAlgo->addAction(ui->actionBubble);
+        ui->menuAlgo->addAction(ui->actionSelect);
         ui->menuAlgo->addAction(ui->actionQuick);
 
         setStatusBar();
@@ -236,6 +238,7 @@ void MainWindow::on_changeAlgorithmMode_triggered()
         ui->menuSet->addAction(ui->changeAlgorithmMode);
 
         ui->menuAlgo->removeAction(ui->actionBubble);
+        ui->menuAlgo->removeAction(ui->actionSelect);
         ui->menuAlgo->removeAction(ui->actionQuick);
 
         setStatusBar();
@@ -395,6 +398,16 @@ void MainWindow::on_actionBubble_triggered()
     setToolBar(3);
 }
 
+void MainWindow::on_actionSelect_triggered()
+{
+    if (!algorithmMode) return;
+    if (isRunning) return;
+    running = "select";
+    sort->setSpeed(50);
+    setStatusBar();
+    setToolBar(3);
+}
+
 void MainWindow::on_actionQuick_triggered()
 {
     if (!algorithmMode) return;
@@ -471,3 +484,5 @@ void MainWindow::on_randomRect_triggered()
     int x = rand() % 16 - 4;
     sort->addRect(x);
 }
+
+

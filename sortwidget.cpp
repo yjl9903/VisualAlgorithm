@@ -60,7 +60,7 @@ void sortWidget::drawRectText(QRect pos, QString str, QPainter *painter)
     painter->drawText(pos, Qt::AlignCenter, str);
 }
 
-void sortWidget::drawRect(int id, QColor color, int isTemp = 0)
+void sortWidget::drawRect(int id, QColor color, int isTemp)
 {
     QPainter *painter = new QPainter(this);
 

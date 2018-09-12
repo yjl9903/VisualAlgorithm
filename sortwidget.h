@@ -35,7 +35,7 @@ public:
     void repaint(int a = -1, int b = -1);
 
 //    void drawRect(QRect, int, QColor);
-    void drawRect(int, QColor, int);
+    void drawRect(int, QColor, int isTemp = 0);
     void drawRectText(QRect, QString, QPainter *);
     void swapRect(int, int);
 
@@ -47,13 +47,14 @@ public:
     bool setShowBoard();
 
     void bubbleSort();
+    void selectSort();
     void quickSort(int, int);
 
     void paintEvent(QPaintEvent *);
 
 private:
     QListWidget *list;
-    QListWidgetItem* item[10];
+    QListWidgetItem* item[11];
 
     QPixmap *pix, *pixTemp1, *pixTemp2;
 

@@ -77,6 +77,8 @@ private slots:
 
     void on_randomRect_triggered();
 
+    void on_actionSelect_triggered();
+
 private:
 //    void initToolBar();
     void setStatusBar();
