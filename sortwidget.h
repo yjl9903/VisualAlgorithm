@@ -43,7 +43,7 @@ public:
     void addRect(int);
 
     void algorithm(QString);
-    void setListWidget(QString);
+    void setListWidget(QString, int, int);
     bool setShowBoard();
 
     void bubbleSort();
@@ -52,13 +52,19 @@ public:
 
     void paintEvent(QPaintEvent *);
 
-private:
     QListWidget *list;
-    QListWidgetItem* item[11];
+
+private:
+
+    QListWidgetItem* item[13];
 
     QPixmap *pix, *pixTemp1, *pixTemp2;
 
     int left, buttom, speed;
+    int cmpCnt, swapCnt;
+    QString running;
+
+    QVector<int> saveArr;
 
     bool isRun, isShowBoard;
 

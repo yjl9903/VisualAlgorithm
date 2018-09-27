@@ -313,15 +313,21 @@ void MainWindow::on_changeEdgeValue_triggered()
 void MainWindow::on_changeBoard_triggered()
 {
 //    if (!isRunning) return;
+    if (algorithmMode){
+        int f = sort->setShowBoard();
+        if (!f) return;
+    }
+    else sort->setShowBoard();
+
     isShowBoard ^= 1;
+    draw->setShowBoard();
+//    sort->setShowBoard();
     if (isShowBoard){
         ui->changeBoard->setText("关闭伪代码");
     }
     else {
         ui->changeBoard->setText("开启伪代码");
     }
-    draw->setShowBoard();
-    sort->setShowBoard();
 }
 
 void MainWindow::on_load1_triggered()
@@ -446,6 +452,9 @@ void MainWindow::on_showSort_triggered()
 {
     if (!algorithmMode) return;
     if (isRunning) return;
+
+//    if (isShowBoard) on_changeBoard_triggered();
+    sort->list->hide();
 
     sort->repaint();
 

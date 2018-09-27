@@ -17,7 +17,7 @@ const int defaultSize = 35;
 const int defaultUnitHeight = 50;
 const int defaultUnitWidth = 80;
 
-const std::string basePath = "E:\\releaseVisual\\";
+const std::string basePath = "E:\\";
 
 class ColorList{
 private:

@@ -20,6 +20,8 @@ sortWidget::sortWidget(QWidget *parent) : QWidget(parent)
     list->setFocusPolicy(Qt::NoFocus);
     list->hide();
 
+    saveArr.clear();
+
     isRun = 0;
     isShowBoard = 1;
     speed = 50;
@@ -132,8 +134,19 @@ void sortWidget::repaint(int a, int b)
 void sortWidget::withdraw()
 {
     if (arr->size() == 0) return;
+    if (saveArr.size()){
+        clear();
+        for (int i = 0; i < saveArr.size(); i++){
+            arr->insert(QPoint(left, buttom), saveArr[i]);
+            left += defaultUnitWidth + 10;
+        }
+        repaint();
+        saveArr.clear();
+        return;
+    }
     arr->del();
     left -= defaultUnitWidth + 10;
+    saveArr.clear();
     repaint();
 }
 
@@ -165,6 +178,14 @@ void sortWidget::addRect(int x)
 
 bool sortWidget::setShowBoard()
 {
+    if (!isRun){
+        if (isShowBoard){
+            isShowBoard ^= 1;
+            list->hide();
+            return true;
+        }
+        else return false;
+    }
     isShowBoard ^= 1;
 //    if (isShowBoard) list->show();
 //    else list->hide();
